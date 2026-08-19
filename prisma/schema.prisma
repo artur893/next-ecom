@@ -6,4 +6,26 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  email String @unique
+  passwordHash String
+}
 
+model Category {
+  id Int @id @default(autoincrement())
+  name String
+  products Product[]
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  price Float
+  stock Int
+  imageUrl String
+  categoryId Int
+  category Category @relation(fields: [categoryId], references: [id])
+}
