@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="bg-gray-950 inter.variable">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
