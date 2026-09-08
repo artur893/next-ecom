@@ -11,9 +11,14 @@ async function main() {
   await prisma.user.deleteMany();
 
   const categories = [
-    { name: "Elektronika" },
-    { name: "Moda" },
-    { name: "Home" },
+    { name: "Mouse", image: "https://i.ibb.co/97HgtGf/mouse.png" },
+    { name: "Monitor", image: "https://i.ibb.co/Lz8sd8rH/laptop-PNG5872.png" },
+    {
+      name: "Keyboard",
+      image: "https://i.ibb.co/93czP8Qg/keyboard-PNG101843.png",
+    },
+    { name: "Headphone", image: "https://i.ibb.co/cpXk4Hn/headphones.png" },
+    { name: "Chair", image: "https://i.ibb.co/B2V5vjMC/chair-PNG6907.png" },
   ];
 
   const createdCategories = [];

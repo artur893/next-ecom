@@ -1,7 +1,11 @@
-export default function Home() {
+import { prisma } from "@/lib/prisma";
+import CategoryCarousel from "@/app/components/ui/CategoryCarousel";
+
+export default async function Home() {
+  const categories = await prisma.category.findMany();
   return (
     <>
-      <h1>strona głowna</h1>
+      <CategoryCarousel categories={categories} />
     </>
   );
 }
