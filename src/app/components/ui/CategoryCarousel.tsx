@@ -10,6 +10,30 @@ interface CategoryProps {
   categories: Category[];
 }
 
+function CategoryDots({
+  currentPage,
+  totalPages,
+  setCurrentPage,
+}: {
+  currentPage: number;
+  totalPages: number;
+  setCurrentPage: (page: number) => void;
+}) {
+  const dots = [];
+  for (let i = 0; i < totalPages; i++) {
+    dots.push(
+      <button
+        key={i}
+        onClick={() => setCurrentPage(i)}
+        className={`w-3 h-3 rounded-full mx-1 cursor-pointer ${
+          i === currentPage ? "bg-primary-500" : "bg-gray-500"
+        }`}
+      ></button>,
+    );
+  }
+  return <div className="flex justify-center my-4">{dots}</div>;
+}
+
 export default function CategoryCarousel({ categories }: CategoryProps) {
   console.log(categories);
   const lastPage = categories.length - 1;
@@ -26,46 +50,53 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
       : setCurrentPage((prev) => prev - 1);
 
   return (
-    <div className="flex justify-between items-center h-113 border border-gray-800 bg-gray-900 rounded-md overflow-hidden">
-      <Button
-        onClick={handlePrevious}
-        className="rotate-270 origin-top-left translate-y-12 rounded-t-none"
-      >
-        <UpArrowIcon className="stroke-neutral-900" />
-      </Button>
-      <div className="w-1/4">
-        <h2 className="text-[32px] font-semibold leading-11 mb-6">
-          {categories[currentPage].name}
-        </h2>
-        <p className="leading-6.5 mb-10">
-          Explore our diverse selection of electronic mice for sale, featuring
-          cutting-edge technology, ergonomic designs, and unbeatable prices.
-          Shop now!
-        </p>
-        <Button variant="outline" rightIcon={<RightArrowIcon />}>
-          Explore Category
+    <>
+      <div className="flex justify-between items-center h-113 border border-gray-800 bg-gray-900 rounded-md overflow-hidden">
+        <Button
+          onClick={handlePrevious}
+          className="rotate-270 origin-top-left translate-y-12 rounded-t-none"
+        >
+          <UpArrowIcon className="stroke-neutral-900" />
+        </Button>
+        <div className="w-1/4">
+          <h2 className="text-[32px] font-semibold leading-11 mb-6">
+            {categories[currentPage].name}
+          </h2>
+          <p className="leading-6.5 mb-10">
+            Explore our diverse selection of electronic mice for sale, featuring
+            cutting-edge technology, ergonomic designs, and unbeatable prices.
+            Shop now!
+          </p>
+          <Button variant="outline" rightIcon={<RightArrowIcon />}>
+            Explore Category
+          </Button>
+        </div>
+        {categories[currentPage].image && (
+          <div
+            className={`${currentPage === 0 ? "relative w-1/2 h-[300%]" : "relative h-full w-1/2"}`}
+          >
+            <Image
+              src={categories[currentPage].image}
+              alt={categories[currentPage].name}
+              fill
+              loading="eager"
+              sizes="50vw"
+              className={`${currentPage === 0 ? "rotate-326 object-cover scale-62 -translate-y-15 overflow-visible" : "object-contain"} `}
+            />
+          </div>
+        )}
+        <Button
+          onClick={handleNext}
+          className="rotate-90 origin-top-right translate-y-12 rounded-t-none"
+        >
+          <UpArrowIcon className="stroke-neutral-900" />
         </Button>
       </div>
-      {categories[currentPage].image && (
-        <div
-          className={`${currentPage === 0 ? "relative w-1/2 h-[300%]" : "relative h-full w-1/2"}`}
-        >
-          <Image
-            src={categories[currentPage].image}
-            alt={categories[currentPage].name}
-            fill
-            loading="eager"
-            sizes="50vw"
-            className={`${currentPage === 0 ? "rotate-326 object-cover scale-62 -translate-y-15 overflow-visible" : "object-contain"} `}
-          />
-        </div>
-      )}
-      <Button
-        onClick={handleNext}
-        className="rotate-90 origin-top-right translate-y-12 rounded-t-none"
-      >
-        <UpArrowIcon className="stroke-neutral-900" />
-      </Button>
-    </div>
+      <CategoryDots
+        currentPage={currentPage}
+        totalPages={categories.length}
+        setCurrentPage={setCurrentPage}
+      />
+    </>
   );
 }
