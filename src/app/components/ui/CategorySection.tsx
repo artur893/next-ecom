@@ -22,7 +22,7 @@ export default function CategorySection() {
 
 function CategoryCard({ text, icon }: { text: string; icon: ReactNode }) {
   return (
-    <button className="w-55 h-47.5 bg-base-white flex flex-col justify-evenly items-center border border-gray-600 rounded-md">
+    <button className="w-55 h-47.5 bg-base-shark flex flex-col justify-evenly items-center border border-gray-600 rounded-md">
       {icon}
       <h3 className="text-xl">{text}</h3>
     </button>

@@ -52,7 +52,7 @@ export default function KeyboardIcon() {
         d="M59 23V19.4286H21V13H59"
         stroke="#F29145"
         strokeWidth="2"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );

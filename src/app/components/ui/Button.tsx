@@ -11,6 +11,7 @@ interface ButtonProps {
   rightIcon?: ReactNode;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit" | "reset";
 }
 
 const sizeMap = {
@@ -28,7 +29,7 @@ const variantMap = {
 };
 
 const base =
-  "flex items-center rounded-md hover:scale-105 transition-transform duration-200";
+  "flex justify-center items-center rounded-md hover:scale-105 transition-transform duration-200";
 
 export default function Button({
   children,
@@ -38,11 +39,13 @@ export default function Button({
   rightIcon,
   className,
   onClick,
+  type = "button",
 }: ButtonProps) {
   const sizeClass = sizeMap[size];
   const variantClass = variantMap[variant];
   return (
     <button
+      type={type}
       onClick={onClick}
       className={`${base} ${sizeClass} ${variantClass} ${className}`}
     >

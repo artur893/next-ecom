@@ -84,7 +84,7 @@
   --color-danger-900: #450a0a;
 
   /* Base */
-  --color-base-white: #262626;
+  --color-base-white: #ffffff;
   --color-base-white-2: #fdfdfd;
   --color-base-alabaster: #fbfbfb;
   --color-base-shark: #232227;
@@ -162,6 +162,75 @@
   --color-blaze-orange-700: #b34c08;
   --color-blaze-orange-800: #8b3b06;
   --color-blaze-orange-900: #6a2d05;
+
+  /* Typography - Paragraph (use with font-normal/medium/semibold/bold) */
+  --text-paragraph-xxs: 0.625rem; /* 10px */
+  --text-paragraph-xxs--line-height: 1.25rem; /* 20px */
+  --text-paragraph-xs: 0.75rem; /* 12px */
+  --text-paragraph-xs--line-height: 1.375rem; /* 22px */
+  --text-paragraph-s: 0.875rem; /* 14px */
+  --text-paragraph-s--line-height: 1.5rem; /* 24px */
+  --text-paragraph-m: 1rem; /* 16px */
+  --text-paragraph-m--line-height: 1.625rem; /* 26px */
+  --text-paragraph-l: 1.125rem; /* 18px */
+  --text-paragraph-l--line-height: 1.75rem; /* 28px */
+
+  /* Typography - Heading Mobile (base, mobile-first) */
+  --text-heading-7: 1.125rem; /* 18px */
+  --text-heading-7--line-height: 1.75rem; /* 28px */
+  --text-heading-7--letter-spacing: -0.01em;
+  --text-heading-6: 1.25rem; /* 20px */
+  --text-heading-6--line-height: 1.875rem; /* 30px */
+  --text-heading-6--letter-spacing: -0.01em;
+  --text-heading-5: 1.5rem; /* 24px */
+  --text-heading-5--line-height: 2.25rem; /* 36px */
+  --text-heading-5--letter-spacing: -0.01em;
+  --text-heading-4: 1.75rem; /* 28px */
+  --text-heading-4--line-height: 2.5rem; /* 40px */
+  --text-heading-4--letter-spacing: -0.01em;
+  --text-heading-3: 2rem; /* 32px */
+  --text-heading-3--line-height: 2.75rem; /* 44px */
+  --text-heading-3--letter-spacing: -0.01em;
+  --text-heading-2: 2.25rem; /* 36px */
+  --text-heading-2--line-height: 2.875rem; /* 46px */
+  --text-heading-2--letter-spacing: -0.01em;
+  --text-heading-1: 2.5rem; /* 40px */
+  --text-heading-1--line-height: 3.125rem; /* 50px */
+  --text-heading-1--letter-spacing: -0.01em;
+
+  /* Typography - Heading Website (desktop, pair with md: prefix) */
+  --text-heading-7-lg: 1.25rem; /* 20px */
+  --text-heading-7-lg--line-height: 1.875rem; /* 30px */
+  --text-heading-7-lg--letter-spacing: -0.01em;
+  --text-heading-6-lg: 1.5rem; /* 24px */
+  --text-heading-6-lg--line-height: 2.25rem; /* 36px */
+  --text-heading-6-lg--letter-spacing: -0.01em;
+  --text-heading-5-lg: 1.75rem; /* 28px */
+  --text-heading-5-lg--line-height: 2.5rem; /* 40px */
+  --text-heading-5-lg--letter-spacing: -0.01em;
+  --text-heading-4-lg: 2rem; /* 32px */
+  --text-heading-4-lg--line-height: 2.75rem; /* 44px */
+  --text-heading-4-lg--letter-spacing: -0.01em;
+  --text-heading-3-lg: 2.25rem; /* 36px */
+  --text-heading-3-lg--line-height: 2.875rem; /* 46px */
+  --text-heading-3-lg--letter-spacing: -0.01em;
+  --text-heading-2-lg: 2.5rem; /* 40px */
+  --text-heading-2-lg--line-height: 3.125rem; /* 50px */
+  --text-heading-2-lg--letter-spacing: -0.01em;
+  --text-heading-1-lg: 2.75rem; /* 44px */
+  --text-heading-1-lg--line-height: 3.375rem; /* 54px */
+  --text-heading-1-lg--letter-spacing: -0.01em;
+
+  /* Typography - Display (desktop only, pair with md: prefix) */
+  --text-display-3: 3rem; /* 48px */
+  --text-display-3--line-height: 3.625rem; /* 58px */
+  --text-display-3--letter-spacing: -0.01em;
+  --text-display-2: 3.5rem; /* 56px */
+  --text-display-2--line-height: 4rem; /* 64px */
+  --text-display-2--letter-spacing: -0.01em;
+  --text-display-1: 4rem; /* 64px */
+  --text-display-1--line-height: 4.75rem; /* 76px */
+  --text-display-1--letter-spacing: -0.01em;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -16,8 +16,8 @@ export default function MonitorIcon() {
         fill="#EE701D"
       />
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M39 56C38.4477 56 38 56.4477 38 57V63H30.5C29.1193 63 28 64.1193 28 65.5V66.5C28 67.8807 29.1193 69 30.5 69H51.5C52.8807 69 54 67.8807 54 66.5V65.5C54 64.1193 52.8807 63 51.5 63H44V57C44 56.4477 43.5523 56 43 56H39Z"
         fill="#F29145"
       />
