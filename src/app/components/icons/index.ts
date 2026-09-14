@@ -38,3 +38,9 @@ export { default as KeyboardIcon } from "./KeyboardIcon";
 export { default as MonitorIcon } from "./MonitorIcon";
 export { default as MouseIcon } from "./MouseIcon";
 export { default as WebcamIcon } from "./WebcamIcon";
+
+export { default as VisaIcon } from "./VisaIcon";
+export { default as MastercardIcon } from "./MastercardIcon";
+export { default as PayPalIcon } from "./PayPalIcon";
+export { default as ApplePayIcon } from "./ApplePayIcon";
+export { default as GooglePayIcon } from "./GooglePayIcon";
