@@ -1,10 +1,11 @@
 "use client";
 import Button from "./Button";
 import Image from "next/image";
-import { RightArrowIcon } from "../icons";
-import UpArrowIcon from "../icons/UpArrowIcon";
+import { RightArrowIcon, ChevronRightIcon } from "../icons";
 import { Category } from "@prisma/client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+const AUTOPLAY_INTERVAL_MS = 5000;
 
 interface CategoryProps {
   categories: Category[];
@@ -25,8 +26,8 @@ function CategoryDots({
       <button
         key={i}
         onClick={() => setCurrentPage(i)}
-        className={`w-3 h-3 rounded-full mx-1 cursor-pointer ${
-          i === currentPage ? "bg-primary-500" : "bg-gray-500"
+        className={`w-3 h-3 rounded-full mx-1.5 cursor-pointer ${
+          i === currentPage ? "bg-primary-500" : "bg-gray-800"
         }`}
       ></button>,
     );
@@ -35,7 +36,6 @@ function CategoryDots({
 }
 
 export default function CategoryCarousel({ categories }: CategoryProps) {
-  console.log(categories);
   const lastPage = categories.length - 1;
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -49,23 +49,29 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
       ? setCurrentPage(lastPage)
       : setCurrentPage((prev) => prev - 1);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentPage((prev) => (prev === lastPage ? 0 : prev + 1));
+    }, AUTOPLAY_INTERVAL_MS);
+
+    return () => clearInterval(timer);
+  }, [currentPage, lastPage]);
+
   return (
     <>
       <div className="flex justify-between items-center h-113 border border-gray-800 bg-gray-900 rounded-md overflow-hidden">
-        <Button
+        <button
           onClick={handlePrevious}
-          className="rotate-270 origin-top-left translate-y-12 rounded-t-none"
+          className="rotate-180 flex items-center justify-center w-11 h-18.5 py-1 px-1.75 rounded-l-md bg-primary-500 hover:bg-primary-600 active:bg-primary-600 transition-colors duration-200 cursor-pointer"
         >
-          <UpArrowIcon className="stroke-neutral-900" />
-        </Button>
+          <ChevronRightIcon className="stroke-neutral-900" />
+        </button>
         <div className="w-1/4">
-          <h2 className="text-[32px] font-semibold leading-11 mb-6">
+          <h2 className="text-heading-3 font-semibold mb-6">
             {categories[currentPage].name}
           </h2>
-          <p className="leading-6.5 mb-10">
-            Explore our diverse selection of electronic mice for sale, featuring
-            cutting-edge technology, ergonomic designs, and unbeatable prices.
-            Shop now!
+          <p className="text-paragraph-m mb-10">
+            {categories[currentPage].description}
           </p>
           <Button variant="outline" rightIcon={<RightArrowIcon />}>
             Explore Category
@@ -73,7 +79,8 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
         </div>
         {categories[currentPage].image && (
           <div
-            className={`${currentPage === 0 ? "relative w-1/2 h-[300%]" : "relative h-full w-1/2"}`}
+            key={categories[currentPage].id}
+            className={`${categories[currentPage].name === "Mouse" ? "relative w-1/2 h-[300%]" : "relative h-full w-1/2"}`}
           >
             <Image
               src={categories[currentPage].image}
@@ -81,16 +88,16 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
               fill
               loading="eager"
               sizes="50vw"
-              className={`${currentPage === 0 ? "rotate-326 object-cover scale-62 -translate-y-15 overflow-visible" : "object-contain"} `}
+              className={`${categories[currentPage].name === "Mouse" ? "rotate-326 object-cover scale-62 -translate-y-15 overflow-visible" : "object-contain"} `}
             />
           </div>
         )}
-        <Button
+        <button
           onClick={handleNext}
-          className="rotate-90 origin-top-right translate-y-12 rounded-t-none"
+          className="flex items-center justify-center w-11 h-18.5 py-1 px-1.75 rounded-l-md bg-primary-500 hover:bg-primary-600 active:bg-primary-600 transition-colors duration-200 cursor-pointer"
         >
-          <UpArrowIcon className="stroke-neutral-900" />
-        </Button>
+          <ChevronRightIcon className="stroke-neutral-900" />
+        </button>
       </div>
       <CategoryDots
         currentPage={currentPage}

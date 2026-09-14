@@ -23,6 +23,7 @@ export { default as HeartIcon } from "./HeartIcon";
 export { default as LikeIcon } from "./LikeIcon";
 export { default as ChevronUpIcon } from "./ChevronUpIcon";
 export { default as ChevronDownIcon } from "./ChevronDownIcon";
+export { default as ChevronRightIcon } from "./ChevronRightIcon";
 export { default as ArrowUpIcon } from "./ArrowUpIcon";
 export { default as ArrowDownIcon } from "./ArrowDownIcon";
 export { default as ArrowUpShortIcon } from "./ArrowUpShortIcon";

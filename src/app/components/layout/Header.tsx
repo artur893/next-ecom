@@ -5,7 +5,7 @@ export default function Header() {
   return (
     <header className="w-full flex justify-between">
       <Link href={"/"}>
-        <h1 className="text-primary-500 text-3xl font-semibold">
+        <h1 className="text-primary-500 text-heading-4 font-semibold">
           Devstock<span className="text-neutral-100">Hub</span>
         </h1>
       </Link>

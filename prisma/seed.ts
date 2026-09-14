@@ -11,14 +11,36 @@ async function main() {
   await prisma.user.deleteMany();
 
   const categories = [
-    { name: "Mouse", image: "https://i.ibb.co/97HgtGf/mouse.png" },
-    { name: "Monitor", image: "https://i.ibb.co/Lz8sd8rH/laptop-PNG5872.png" },
+    {
+      name: "Mouse",
+      image: "https://i.ibb.co/97HgtGf/mouse.png",
+      description:
+        "Explore our diverse selection of electronic mice for sale, featuring cutting-edge technology, ergonomic designs, and unbeatable prices. Shop now!",
+    },
+    {
+      name: "Monitor",
+      image: "https://i.ibb.co/Lz8sd8rH/laptop-PNG5872.png",
+      description:
+        "Explore our diverse selection of monitors for sale, featuring crisp displays, sleek designs, and unbeatable prices. Shop now!",
+    },
     {
       name: "Keyboard",
       image: "https://i.ibb.co/93czP8Qg/keyboard-PNG101843.png",
+      description:
+        "Explore our diverse selection of keyboards for sale, featuring responsive keys, durable builds, and unbeatable prices. Shop now!",
     },
-    { name: "Headphone", image: "https://i.ibb.co/cpXk4Hn/headphones.png" },
-    { name: "Chair", image: "https://i.ibb.co/B2V5vjMC/chair-PNG6907.png" },
+    {
+      name: "Headphone",
+      image: "https://i.ibb.co/cpXk4Hn/headphones.png",
+      description:
+        "Explore our diverse selection of headphones for sale, featuring immersive sound, comfortable fit, and unbeatable prices. Shop now!",
+    },
+    {
+      name: "Webcam",
+      image: "https://i.ibb.co/cSSV6RFf/webcam.png",
+      description:
+        "Explore our diverse selection of webcams for sale, featuring sharp resolution, easy setup, and unbeatable prices. Shop now!",
+    },
   ];
 
   const createdCategories = [];
