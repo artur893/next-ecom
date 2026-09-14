@@ -26,7 +26,7 @@ const sizeMap = {
 
 const variantMap = {
   solid:
-    "bg-primary-500 text-base-white border-none hover:bg-primary-600 active:bg-primary-600 disabled:bg-primary-300",
+    "bg-primary-500 text-neutral-900 border-none hover:bg-primary-600 active:bg-primary-600 disabled:bg-primary-300",
   outline:
     "text-primary-500 border border-primary-500 hover:text-primary-400 hover:border-primary-400 active:text-primary-400 active:border-primary-400 disabled:text-primary-300 disabled:border-primary-300",
   text: "text-primary-500 border-none hover:text-primary-400 active:text-primary-400 disabled:text-primary-300",

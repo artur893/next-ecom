@@ -245,3 +245,15 @@ body {
   color: var(--foreground);
   font-family: var(--font-inter), sans-serif;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px #232227 inset;
+  box-shadow: 0 0 0px 1000px #232227 inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
