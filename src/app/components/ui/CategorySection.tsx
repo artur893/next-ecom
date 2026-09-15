@@ -1,9 +1,11 @@
 import { ReactNode } from "react";
-import MouseIcon from "../icons/MouseIcon";
-import MonitorIcon from "../icons/MonitorIcon";
-import HeadphoneIcon from "../icons/HeadphoneIcon";
-import KeyboardIcon from "../icons/KeyboardIcon";
-import WebcamIcon from "../icons/WebcamIcon";
+import {
+  MouseIcon,
+  MonitorIcon,
+  HeadphoneIcon,
+  KeyboardIcon,
+  WebcamIcon,
+} from "@/app/components/icons";
 
 export default function CategorySection() {
   return (

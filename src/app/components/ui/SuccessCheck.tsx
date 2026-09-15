@@ -1,4 +1,4 @@
-import { CheckIcon } from "../icons";
+import { CheckIcon } from "@/app/components/icons";
 
 export default function SuccessCheck() {
   return (

@@ -1,5 +1,5 @@
 import { forwardRef, ReactNode, SelectHTMLAttributes } from "react";
-import { ChevronDownIcon } from "../icons";
+import { ChevronDownIcon } from "@/app/components/icons";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;

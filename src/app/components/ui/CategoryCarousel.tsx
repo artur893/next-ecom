@@ -1,7 +1,7 @@
 "use client";
 import Button from "./Button";
 import Image from "next/image";
-import { RightArrowIcon, ChevronRightIcon } from "../icons";
+import { RightArrowIcon, ChevronRightIcon } from "@/app/components/icons";
 import { Category } from "@prisma/client";
 import { useEffect, useState } from "react";
 

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { CheckIcon, CloseIcon } from "../icons";
+import { CheckIcon, CloseIcon } from "@/app/components/icons";
 import { useNotification } from "../providers/NotificationProvider";
 
 const typeStyles = {

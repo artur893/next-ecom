@@ -4,7 +4,8 @@ import {
   PayPalIcon,
   ApplePayIcon,
   GooglePayIcon,
-} from "../icons";
+} from "@/app/components/icons";
+import Logo from "../ui/Logo";
 
 export default function Footer() {
   const h3Styles = "font-semibold text-heading-6 text-neutral-50 mb-4";
@@ -13,8 +14,8 @@ export default function Footer() {
     <footer className="bg-gray-900 px-14 py-32 -mx-10 -mb-8">
       <div className="flex justify-between">
         <div className="flex flex-col gap-6">
-          <h3 className="text-primary-500 text-heading-4 font-semibold">
-            Devstock<span className="text-neutral-100">Hub</span>
+          <h3 className="text-heading-4 font-semibold">
+            <Logo />
           </h3>
           <p>
             © 2023 DevstockHub

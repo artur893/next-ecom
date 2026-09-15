@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import CartIcon from "../icons/CartIcon";
+import { CartIcon } from "@/app/components/icons";
 import Button from "../ui/Button";
+import Logo from "../ui/Logo";
 import UserAvatarButton from "./UserAvatarButton";
 
 export default async function Header() {
@@ -12,8 +13,8 @@ export default async function Header() {
   return (
     <header className="w-full flex justify-between items-center">
       <Link href={"/"}>
-        <h1 className="text-primary-500 text-heading-4 font-semibold">
-          Devstock<span className="text-neutral-100">Hub</span>
+        <h1 className="text-heading-4 font-semibold">
+          <Logo />
         </h1>
       </Link>
 
