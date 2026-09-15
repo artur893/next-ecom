@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import ProductCard from "@/app/components/ui/ProductCard";
+import { ProductCard } from "@/app/components/ui";
 
 export default async function ProductList({
   searchParams,

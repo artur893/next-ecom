@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
-import Logo from "@/app/components/ui/Logo";
+import { Logo } from "@/app/components/ui";
 import RegisterForm from "./RegisterForm";
 
 export default async function Register() {

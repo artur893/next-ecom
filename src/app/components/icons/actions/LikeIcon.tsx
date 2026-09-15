@@ -1,0 +1,9 @@
+import BaseIcon, { IconProps } from "../BaseIcon";
+
+export default function LikeIcon(props: IconProps) {
+  return (
+    <BaseIcon strokeWidth={1.5} viewBox="182 596 24 24" {...props}>
+      <path d="M188 606V616M188 616L197.36 616C198.314 616 199.135 615.327 199.322 614.392L200.522 608.392C200.769 607.155 199.822 606 198.56 606H194L196.426 602.361C197.193 601.211 196.588 599.647 195.247 599.312L195.199 599.3C194.464 599.116 193.689 599.363 193.196 599.938L188 606L184 606V616L188 616Z" />
+    </BaseIcon>
+  );
+}

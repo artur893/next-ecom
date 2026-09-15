@@ -4,9 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import Button from "@/app/components/ui/Button";
-import Input from "@/app/components/ui/Input";
-import Checkbox from "@/app/components/ui/Checkbox";
+import { Button, Input, Checkbox } from "@/app/components/ui";
 import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
 import { useNotification } from "@/app/components/providers/NotificationProvider";
 

@@ -1,9 +1,11 @@
 import { prisma } from "@/lib/prisma";
-import CategoryCarousel from "@/app/components/ui/CategoryCarousel";
-import CategorySection from "@/app/components/ui/CategorySection";
-import HorizontalScrollSection from "@/app/components/ui/HorizontalScrollSection";
-import ProductCard from "@/app/components/ui/ProductCard";
-import BrandCard from "@/app/components/ui/BrandCard";
+import {
+  CategoryCarousel,
+  CategorySection,
+  HorizontalScrollSection,
+  ProductCard,
+  BrandCard,
+} from "@/app/components/ui";
 
 function pickRandom<T>(items: T[], count: number) {
   const shuffled = [...items].sort(() => Math.random() - 0.5);

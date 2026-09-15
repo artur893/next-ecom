@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
-import Logo from "@/app/components/ui/Logo";
+import { Logo } from "@/app/components/ui";
 import LoginForm from "./LoginForm";
 
 export default async function Login() {

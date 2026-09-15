@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import SuccessCheck from "@/app/components/ui/SuccessCheck";
+import { SuccessCheck } from "@/app/components/ui";
 
 const REDIRECT_DELAY_MS = 5000;
 

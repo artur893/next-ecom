@@ -1,7 +1,7 @@
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
 import Navigation from "../components/layout/Navigation";
-import Notification from "../components/ui/Notification";
+import { Notification } from "../components/ui";
 
 export default function ShopLayout({
   children,

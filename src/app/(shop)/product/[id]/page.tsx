@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import AddToCartButton from "@/app/components/ui/AddToCartButton";
+import { AddToCartButton } from "@/app/components/ui";
 
 export default async function ProductDetail({
   params,

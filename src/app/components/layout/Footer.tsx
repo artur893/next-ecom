@@ -5,7 +5,7 @@ import {
   ApplePayIcon,
   GooglePayIcon,
 } from "@/app/components/icons";
-import Logo from "../ui/Logo";
+import { Logo } from "../ui";
 
 export default function Footer() {
   const h3Styles = "font-semibold text-heading-6 text-neutral-50 mb-4";

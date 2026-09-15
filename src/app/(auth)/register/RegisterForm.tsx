@@ -1,10 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import Button from "@/app/components/ui/Button";
-import Input from "@/app/components/ui/Input";
-import Select from "@/app/components/ui/Select";
-import Checkbox from "@/app/components/ui/Checkbox";
+import { Button, Input, Select, Checkbox } from "@/app/components/ui";
 import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
 import { useRouter } from "next/navigation";
 import { useNotification } from "@/app/components/providers/NotificationProvider";

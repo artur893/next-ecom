@@ -2,8 +2,7 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { CartIcon } from "@/app/components/icons";
-import Button from "../ui/Button";
-import Logo from "../ui/Logo";
+import { Button, Logo } from "../ui";
 import UserAvatarButton from "./UserAvatarButton";
 
 export default async function Header() {
