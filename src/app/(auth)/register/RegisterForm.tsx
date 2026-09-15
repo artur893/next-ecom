@@ -6,6 +6,8 @@ import Input from "@/app/components/ui/Input";
 import Select from "@/app/components/ui/Select";
 import Checkbox from "@/app/components/ui/Checkbox";
 import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
+import { useRouter } from "next/navigation";
+import { useNotification } from "@/app/components/providers/NotificationProvider";
 
 type RegisterFormValues = {
   email: string;
@@ -21,6 +23,8 @@ const PASSWORD_RULE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const router = useRouter();
+  const { showNotification } = useNotification();
 
   const {
     register,
@@ -38,8 +42,19 @@ export default function RegisterForm() {
     },
   });
 
-  function onSubmit(data: RegisterFormValues) {
-    console.log(data);
+  async function onSubmit(data: RegisterFormValues) {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const result = await response.json();
+      showNotification(result.error ?? "Something went wrong", "error");
+      return;
+    }
+    router.push("/register/success");
   }
 
   return (
