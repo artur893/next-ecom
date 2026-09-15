@@ -1,18 +1,13 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
 
 type ButtonSize = "xs" | "s" | "m" | "l" | "xl" | "xxl";
 type ButtonVariant = "solid" | "outline" | "text";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   variant?: ButtonVariant;
-  children?: ReactNode;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  className?: string;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  type?: "button" | "submit" | "reset";
-  disabled?: boolean;
 }
 
 const sizeMap = {
@@ -35,29 +30,36 @@ const variantMap = {
 const base =
   "flex justify-center items-center rounded-md transition-colors duration-200 disabled:cursor-not-allowed";
 
-export default function Button({
-  children,
-  size = "m",
-  variant = "solid",
-  leftIcon,
-  rightIcon,
-  className,
-  onClick,
-  type = "button",
-  disabled = false,
-}: ButtonProps) {
-  const sizeClass = sizeMap[size];
-  const variantClass = variantMap[variant];
-  return (
-    <button
-      type={type}
-      onClick={onClick}
-      disabled={disabled}
-      className={`${base} ${sizeClass} ${variantClass} ${className}`}
-    >
-      {leftIcon && <span className="mr-3.5">{leftIcon}</span>}
-      {children}
-      {rightIcon && <span className="ml-3.5">{rightIcon}</span>}
-    </button>
-  );
-}
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      size = "m",
+      variant = "solid",
+      leftIcon,
+      rightIcon,
+      className,
+      type = "button",
+      ...props
+    },
+    ref,
+  ) => {
+    const sizeClass = sizeMap[size];
+    const variantClass = variantMap[variant];
+    return (
+      <button
+        ref={ref}
+        type={type}
+        className={`${base} ${sizeClass} ${variantClass} ${className}`}
+        {...props}
+      >
+        {leftIcon && <span className="mr-3.5">{leftIcon}</span>}
+        {children}
+        {rightIcon && <span className="ml-3.5">{rightIcon}</span>}
+      </button>
+    );
+  },
+);
+
+Button.displayName = "Button";
+export default Button;
