@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import CartIcon from "../icons/CartIcon";
 import Button from "../ui/Button";
+import UserAvatarButton from "./UserAvatarButton";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
@@ -17,14 +18,16 @@ export default async function Header() {
       </Link>
 
       <div className="flex items-center">
-        <CartIcon className="text-neutral-100 flex items-center justify-center mr-7" />
         {initial ? (
-          <div className="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-neutral-900 text-xs font-semibold">
-            {initial}
-          </div>
+          <>
+            <CartIcon className="text-neutral-100 flex items-center justify-center mr-7" />
+            <UserAvatarButton initial={initial} />
+          </>
         ) : (
           <Link href="/login">
-            <Button size="s">Sign In</Button>
+            <Button size="s" className="font-medium">
+              Sign In
+            </Button>
           </Link>
         )}
       </div>

@@ -23,7 +23,7 @@ export default function Notification() {
 
   return (
     <div
-      className={`flex items-center justify-between gap-3 rounded-md border px-4 py-3 ${typeStyles[notification.type]}`}
+      className={`flex items-center justify-between gap-3 rounded-md border px-4 py-3 mb-5 ${typeStyles[notification.type]}`}
     >
       <div className="flex items-center gap-3">
         <Icon width={20} height={20} />

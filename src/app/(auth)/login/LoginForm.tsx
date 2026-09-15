@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import Button from "@/app/components/ui/Button";
@@ -17,7 +17,8 @@ type LoginFormValues = {
 };
 
 export default function LoginForm() {
-  const [step, setStep] = useState<"identifier" | "password">("identifier");
+  const searchParams = useSearchParams();
+  const step = searchParams.get("step") === "password" ? "password" : "identifier";
   const [showPassword, setShowPassword] = useState(false);
 
   const [isSigningIn, setIsSigningIn] = useState(false);
@@ -39,7 +40,7 @@ export default function LoginForm() {
 
   async function handleContinue() {
     const valid = await trigger("identifier");
-    if (valid) setStep("password");
+    if (valid) router.push("/login?step=password");
   }
 
   async function onSubmit(data: LoginFormValues) {
@@ -53,6 +54,7 @@ export default function LoginForm() {
 
     if (!result || result.error) {
       showNotification("Incorrect email/phone or password.", "error");
+      router.push("/login");
       return;
     }
 
@@ -65,7 +67,17 @@ export default function LoginForm() {
       <h2 className="text-2xl mb-5">Sign in</h2>
       <div className="h-px w-full bg-neutral-700 mb-8"></div>
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && step === "identifier") {
+            e.preventDefault();
+            handleContinue();
+          }
+        }}
+        noValidate
+        className="space-y-6"
+      >
         {step === "identifier" && (
           <>
             <Input
