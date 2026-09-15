@@ -1,13 +1,65 @@
 import { prisma } from "@/lib/prisma";
 import CategoryCarousel from "@/app/components/ui/CategoryCarousel";
 import CategorySection from "@/app/components/ui/CategorySection";
+import HorizontalScrollSection from "@/app/components/ui/HorizontalScrollSection";
+import ProductCard from "@/app/components/ui/ProductCard";
+import BrandCard from "@/app/components/ui/BrandCard";
+
+function pickRandom<T>(items: T[], count: number) {
+  const shuffled = [...items].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, count);
+}
+
+async function getRecommendedProducts() {
+  const categories = await prisma.category.findMany({
+    include: { products: { include: { brand: true } } },
+  });
+
+  const oneProductPerCategory = categories
+    .filter((category) => category.products.length > 0)
+    .map((category) => pickRandom(category.products, 1)[0]);
+
+  const remainingSlots = 6 - oneProductPerCategory.length;
+  const usedIds = new Set(oneProductPerCategory.map((p) => p.id));
+  const allProducts = categories.flatMap((category) => category.products);
+  const extraPool = allProducts.filter((p) => !usedIds.has(p.id));
+  const extras = remainingSlots > 0 ? pickRandom(extraPool, remainingSlots) : [];
+
+  const categoryNameById = new Map(categories.map((c) => [c.id, c.name]));
+
+  return [...oneProductPerCategory, ...extras].map((product) => ({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    originalPrice: product.originalPrice,
+    categoryName: categoryNameById.get(product.categoryId) ?? "",
+    image: product.images[0],
+  }));
+}
 
 export default async function Home() {
-  const categories = await prisma.category.findMany();
+  const [categories, recommendedProducts, brands] = await Promise.all([
+    prisma.category.findMany(),
+    getRecommendedProducts(),
+    prisma.brand.findMany(),
+  ]);
+
   return (
     <>
       <CategoryCarousel categories={categories} />
-      <CategorySection />
+      <CategorySection categories={categories} />
+
+      <HorizontalScrollSection title="Recomendation">
+        {recommendedProducts.map((product) => (
+          <ProductCard key={product.id} {...product} />
+        ))}
+      </HorizontalScrollSection>
+
+      <HorizontalScrollSection title="Brand">
+        {brands.map((brand) => (
+          <BrandCard key={brand.id} name={brand.name} />
+        ))}
+      </HorizontalScrollSection>
     </>
   );
 }

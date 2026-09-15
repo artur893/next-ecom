@@ -15,6 +15,7 @@ function moreleImages(id: number, indices: number[], ext = "jpg") {
 async function main() {
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
+  await prisma.brand.deleteMany();
   await prisma.user.deleteMany();
 
   const categories = [
@@ -26,7 +27,8 @@ async function main() {
       products: [
         {
           name: "Logitech G502 HERO",
-          price: 59.99,
+          price: 34.99,
+          originalPrice: 54.99,
           stock: 34,
           images: moreleImages(4143406, [14, 15, 16, 17, 18, 19, 20, 21]),
         },
@@ -226,20 +228,35 @@ async function main() {
     },
   ];
 
+  const brandNames = new Set(
+    categories.flatMap(({ products }) =>
+      products.map((p) => p.name.split(" ")[0]),
+    ),
+  );
+
+  const brandsByName = new Map<string, number>();
+  for (const name of brandNames) {
+    const brand = await prisma.brand.create({ data: { name } });
+    brandsByName.set(name, brand.id);
+  }
+
   for (const { products, ...category } of categories) {
     const createdCategory = await prisma.category.create({
       data: category,
     });
 
     for (const product of products) {
+      const brandName = product.name.split(" ")[0];
       await prisma.product.create({
         data: {
           name: product.name,
           description: `${product.name} - a top pick from our ${category.name} lineup, combining reliable performance with great value.`,
           price: product.price,
+          originalPrice: "originalPrice" in product ? product.originalPrice : null,
           stock: product.stock,
           images: product.images,
           categoryId: createdCategory.id,
+          brandId: brandsByName.get(brandName),
         },
       });
     }
