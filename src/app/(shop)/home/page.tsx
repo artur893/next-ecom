@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import {
   CategoryCarousel,
   CategorySection,
+  CATEGORY_CARD_SIZE,
   HorizontalScrollSection,
   ProductCard,
   Card,
@@ -49,7 +50,9 @@ export default async function Home() {
 
   return (
     <>
-      <CategoryCarousel categories={categories} />
+      <div className="hidden md:block">
+        <CategoryCarousel categories={categories} />
+      </div>
       <CategorySection categories={categories} />
 
       <HorizontalScrollSection title="Recomendation">
@@ -64,7 +67,7 @@ export default async function Home() {
             key={brand.id}
             image={brand.logoUrl}
             label={brand.name}
-            className="w-38 h-33 shrink-0 lg:w-49 lg:h-41.5 xl:w-55 xl:h-47.5"
+            className={CATEGORY_CARD_SIZE}
           />
         ))}
       </HorizontalScrollSection>

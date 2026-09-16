@@ -11,6 +11,7 @@ import { RightArrowIcon } from "@/app/components/icons";
 interface HorizontalScrollSectionProps {
   title: string;
   children: ReactNode;
+  className?: string;
 }
 
 const DRAG_THRESHOLD_PX = 5;
@@ -18,6 +19,7 @@ const DRAG_THRESHOLD_PX = 5;
 export default function HorizontalScrollSection({
   title,
   children,
+  className = "mt-20",
 }: HorizontalScrollSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [hasOverflow, setHasOverflow] = useState(false);
@@ -86,9 +88,11 @@ export default function HorizontalScrollSection({
   }
 
   return (
-    <section className="mt-20">
+    <section className={className}>
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-heading-4 font-medium">{title}</h2>
+        <h2 className="text-heading-6 font-medium lg:text-heading-5 xl:text-heading-4">
+          {title}
+        </h2>
         {hasOverflow && (
           <button
             type="button"

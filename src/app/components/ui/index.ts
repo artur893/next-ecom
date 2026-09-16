@@ -16,5 +16,8 @@ export { default as ProductCard } from "./product/ProductCard";
 export { default as AddToCartButton } from "./product/AddToCartButton";
 export { useAddToCart } from "./product/useAddToCart";
 export { default as CategoryCarousel } from "./product/CategoryCarousel";
-export { default as CategorySection } from "./product/CategorySection";
+export {
+  default as CategorySection,
+  CATEGORY_CARD_SIZE,
+} from "./product/CategorySection";
 export { default as HorizontalScrollSection } from "./product/HorizontalScrollSection";

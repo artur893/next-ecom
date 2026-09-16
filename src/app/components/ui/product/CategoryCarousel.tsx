@@ -80,7 +80,9 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
         {categories[currentPage].image && (
           <div
             key={categories[currentPage].id}
-            className={`${categories[currentPage].name === "Mouse" ? "relative w-1/2 h-[300%]" : "relative h-full w-1/2"}`}
+            className={`relative h-full w-1/2 ${
+              categories[currentPage].name === "Mouse" ? "lg:h-[300%]" : ""
+            }`}
           >
             <Image
               src={categories[currentPage].image}
@@ -88,7 +90,11 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
               fill
               loading="eager"
               sizes="50vw"
-              className={`${categories[currentPage].name === "Mouse" ? "rotate-326 object-cover scale-62 -translate-y-15 overflow-visible" : "object-contain"} `}
+              className={`object-contain ${
+                categories[currentPage].name === "Mouse"
+                  ? "lg:rotate-326 lg:object-cover lg:scale-62 lg:-translate-y-15 lg:overflow-visible"
+                  : ""
+              }`}
             />
           </div>
         )}

@@ -12,7 +12,7 @@ export default function Footer() {
   const groupStyles = "w-48 flex flex-col gap-4";
   return (
     <footer className="bg-gray-900 px-14 py-32 -mx-10 -mb-8 mt-22">
-      <div className="flex justify-between">
+      <div className="flex flex-wrap justify-between gap-10">
         <div className="flex flex-col gap-6">
           <h3 className="text-heading-4 font-semibold">
             <Logo />
@@ -29,7 +29,7 @@ export default function Footer() {
             <GooglePayIcon />
           </div>
         </div>
-        <div className="flex">
+        <div className="flex flex-wrap gap-x-8 gap-y-6">
           <div className={groupStyles}>
             <h3 className={h3Styles}>Company</h3>
             <ul className="flex flex-col gap-4">
