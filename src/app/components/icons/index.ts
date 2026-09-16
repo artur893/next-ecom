@@ -4,6 +4,7 @@ export type { IconProps } from "./BaseIcon";
 // Actions
 export { default as CartIcon } from "./actions/CartIcon";
 export { default as CheckIcon } from "./actions/CheckIcon";
+export { default as CheckCircleIcon } from "./actions/CheckCircleIcon";
 export { default as ClosedEyeIcon } from "./actions/ClosedEyeIcon";
 export { default as CloseIcon } from "./actions/CloseIcon";
 export { default as OpenEyeIcon } from "./actions/OpenEyeIcon";
