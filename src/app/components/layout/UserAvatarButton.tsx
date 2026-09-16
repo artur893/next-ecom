@@ -6,7 +6,7 @@ export default function UserAvatarButton({ initial }: { initial: string }) {
     <button
       type="button"
       onClick={() => signOut({ callbackUrl: "/login" })}
-      className="w-6 h-6 rounded-full bg-primary-500 flex items-center justify-center text-neutral-900 text-xs font-semibold"
+      className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-neutral-900 text-lg font-semibold"
     >
       {initial}
     </button>
