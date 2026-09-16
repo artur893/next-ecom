@@ -27,6 +27,7 @@ model Category {
 model Brand {
   id Int @id @default(autoincrement())
   name String
+  logoUrl String?
   products Product[]
 }
 

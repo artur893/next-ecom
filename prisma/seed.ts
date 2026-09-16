@@ -13,6 +13,8 @@ function moreleImages(id: number, indices: number[], ext = "jpg") {
 }
 
 async function main() {
+  await prisma.cartItem.deleteMany();
+  await prisma.cart.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
   await prisma.brand.deleteMany();
@@ -92,10 +94,7 @@ async function main() {
           name: "ASUS ROG Swift PG279QM",
           price: 629.99,
           stock: 6,
-          images: moreleImages(
-            9375430,
-            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-          ),
+          images: moreleImages(9375430, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
         },
         {
           name: "BenQ PD2700U",
@@ -162,11 +161,7 @@ async function main() {
           name: "SteelSeries Arctis Nova Pro",
           price: 329.99,
           stock: 13,
-          images: moreleImages(
-            10525705,
-            [0, 1, 2, 3, 4, 5, 6],
-            "jpeg",
-          ),
+          images: moreleImages(10525705, [0, 1, 2, 3, 4, 5, 6], "jpeg"),
         },
         {
           name: "HyperX Cloud II",
@@ -234,9 +229,35 @@ async function main() {
     ),
   );
 
+  // Logos from Simple Icons (https://cdn.simpleicons.org/<slug>) where the
+  // brand is listed there, otherwise a direct Wikimedia Commons asset.
+  // All URLs verified (200 OK) before adding.
+  const BRAND_LOGOS: Record<string, string> = {
+    Razer: "https://cdn.simpleicons.org/razer",
+    SteelSeries: "https://cdn.simpleicons.org/steelseries",
+    Corsair: "https://cdn.simpleicons.org/corsair",
+    LG: "https://cdn.simpleicons.org/lg",
+    Samsung: "https://cdn.simpleicons.org/samsung",
+    Dell: "https://cdn.simpleicons.org/dell",
+    ASUS: "https://cdn.simpleicons.org/asus",
+    Sony: "https://cdn.simpleicons.org/sony",
+    HyperX: "https://cdn.simpleicons.org/hyperx",
+    Sennheiser: "https://cdn.simpleicons.org/sennheiser",
+    Elgato: "https://cdn.simpleicons.org/elgato",
+    BenQ: "https://upload.wikimedia.org/wikipedia/commons/6/6c/BenQ-Logo.svg",
+    Keychron:
+      "https://upload.wikimedia.org/wikipedia/commons/6/69/Keychron_logo.svg",
+    AverMedia:
+      "https://upload.wikimedia.org/wikipedia/commons/0/0b/AVerMedia_Logo.png",
+    Logitech:
+      "https://upload.wikimedia.org/wikipedia/commons/1/17/Logitech_logo.svg",
+  };
+
   const brandsByName = new Map<string, number>();
   for (const name of brandNames) {
-    const brand = await prisma.brand.create({ data: { name } });
+    const brand = await prisma.brand.create({
+      data: { name, logoUrl: BRAND_LOGOS[name] ?? null },
+    });
     brandsByName.set(name, brand.id);
   }
 
@@ -252,7 +273,8 @@ async function main() {
           name: product.name,
           description: `${product.name} - a top pick from our ${category.name} lineup, combining reliable performance with great value.`,
           price: product.price,
-          originalPrice: "originalPrice" in product ? product.originalPrice : null,
+          originalPrice:
+            "originalPrice" in product ? product.originalPrice : null,
           stock: product.stock,
           images: product.images,
           categoryId: createdCategory.id,

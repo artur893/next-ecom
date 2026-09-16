@@ -11,7 +11,7 @@ export default function Footer() {
   const h3Styles = "font-semibold text-heading-6 text-neutral-50 mb-4";
   const groupStyles = "w-48 flex flex-col gap-4";
   return (
-    <footer className="bg-gray-900 px-14 py-32 -mx-10 -mb-8">
+    <footer className="bg-gray-900 px-14 py-32 -mx-10 -mb-8 mt-22">
       <div className="flex justify-between">
         <div className="flex flex-col gap-6">
           <h3 className="text-heading-4 font-semibold">

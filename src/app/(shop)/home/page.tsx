@@ -4,7 +4,7 @@ import {
   CategorySection,
   HorizontalScrollSection,
   ProductCard,
-  BrandCard,
+  Card,
 } from "@/app/components/ui";
 
 function pickRandom<T>(items: T[], count: number) {
@@ -59,7 +59,12 @@ export default async function Home() {
 
       <HorizontalScrollSection title="Brand">
         {brands.map((brand) => (
-          <BrandCard key={brand.id} name={brand.name} />
+          <Card
+            key={brand.id}
+            image={brand.logoUrl}
+            label={brand.name}
+            className="w-55 h-47.5 shrink-0"
+          />
         ))}
       </HorizontalScrollSection>
     </>

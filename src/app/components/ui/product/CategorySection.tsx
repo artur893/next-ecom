@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
-import Link from "next/link";
 import { Category } from "@prisma/client";
+import { Card } from "@/app/components/ui";
 import {
   MouseIcon,
   MonitorIcon,
@@ -27,34 +27,15 @@ export default function CategorySection({
       <h2 className="text-heading-4 font-medium mt-25 mb-8">Category</h2>
       <div className="flex justify-between">
         {categories.map((category) => (
-          <CategoryCard
+          <Card
             key={category.id}
-            id={category.id}
-            text={category.name}
+            href={`/product?category=${category.id}`}
             icon={CATEGORY_ICONS[category.name]}
+            label={category.name}
+            className="w-55 h-47.5"
           />
         ))}
       </div>
     </section>
-  );
-}
-
-function CategoryCard({
-  id,
-  text,
-  icon,
-}: {
-  id: number;
-  text: string;
-  icon: ReactNode;
-}) {
-  return (
-    <Link
-      href={`/product?category=${id}`}
-      className="w-55 h-47.5 bg-neutral-900 flex flex-col justify-evenly items-center border border-gray-800 rounded-md"
-    >
-      {icon}
-      <h3 className="text-xl">{text}</h3>
-    </Link>
   );
 }
