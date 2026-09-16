@@ -1,5 +1,11 @@
 "use client";
-import { ReactNode, useEffect, useRef, useState } from "react";
+import {
+  MouseEvent as ReactMouseEvent,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { RightArrowIcon } from "@/app/components/icons";
 
 interface HorizontalScrollSectionProps {
@@ -7,12 +13,19 @@ interface HorizontalScrollSectionProps {
   children: ReactNode;
 }
 
+const DRAG_THRESHOLD_PX = 5;
+
 export default function HorizontalScrollSection({
   title,
   children,
 }: HorizontalScrollSectionProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [hasOverflow, setHasOverflow] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const isPointerDownRef = useRef(false);
+  const didDragRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollLeftRef = useRef(0);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -34,10 +47,48 @@ export default function HorizontalScrollSection({
     });
   }
 
+  function handleWindowMouseMove(event: MouseEvent) {
+    const el = scrollRef.current;
+    if (!el || !isPointerDownRef.current) return;
+
+    const delta = event.pageX - startXRef.current;
+    if (Math.abs(delta) > DRAG_THRESHOLD_PX) {
+      didDragRef.current = true;
+    }
+    el.scrollLeft = startScrollLeftRef.current - delta;
+  }
+
+  function handleWindowMouseUp() {
+    isPointerDownRef.current = false;
+    setIsDragging(false);
+    window.removeEventListener("mousemove", handleWindowMouseMove);
+    window.removeEventListener("mouseup", handleWindowMouseUp);
+  }
+
+  function handleMouseDown(event: ReactMouseEvent<HTMLDivElement>) {
+    const el = scrollRef.current;
+    if (!el) return;
+    event.preventDefault();
+    isPointerDownRef.current = true;
+    didDragRef.current = false;
+    startXRef.current = event.pageX;
+    startScrollLeftRef.current = el.scrollLeft;
+    setIsDragging(true);
+    window.addEventListener("mousemove", handleWindowMouseMove);
+    window.addEventListener("mouseup", handleWindowMouseUp);
+  }
+
+  function handleClickCapture(event: ReactMouseEvent<HTMLDivElement>) {
+    if (didDragRef.current) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
   return (
     <section className="mt-20">
       <div className="mb-6 flex items-center justify-between">
-        <h2 className="text-heading-5 font-semibold">{title}</h2>
+        <h2 className="text-heading-4 font-medium">{title}</h2>
         {hasOverflow && (
           <button
             type="button"
@@ -49,7 +100,14 @@ export default function HorizontalScrollSection({
           </button>
         )}
       </div>
-      <div ref={scrollRef} className="flex gap-6 overflow-x-auto pb-2">
+      <div
+        ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onClickCapture={handleClickCapture}
+        className={`scrollbar-hide flex select-none gap-6 overflow-x-auto pb-2 ${
+          isDragging ? "cursor-grabbing" : "cursor-grab"
+        }`}
+      >
         {children}
       </div>
     </section>

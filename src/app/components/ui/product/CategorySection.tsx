@@ -24,7 +24,7 @@ export default function CategorySection({
 }) {
   return (
     <section>
-      <h2 className="text-[28px] mt-25 mb-8">Category</h2>
+      <h2 className="text-heading-4 font-medium mt-25 mb-8">Category</h2>
       <div className="flex justify-between">
         {categories.map((category) => (
           <CategoryCard
@@ -51,7 +51,7 @@ function CategoryCard({
   return (
     <Link
       href={`/product?category=${id}`}
-      className="w-55 h-47.5 bg-base-shark flex flex-col justify-evenly items-center border border-gray-600 rounded-md"
+      className="w-55 h-47.5 bg-neutral-900 flex flex-col justify-evenly items-center border border-gray-800 rounded-md"
     >
       {icon}
       <h3 className="text-xl">{text}</h3>

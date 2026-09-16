@@ -257,3 +257,12 @@ select:-webkit-autofill:focus {
   box-shadow: 0 0 0px 1000px #232227 inset;
   transition: background-color 9999s ease-in-out 0s;
 }
+
+.scrollbar-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
