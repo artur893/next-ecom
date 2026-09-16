@@ -25,7 +25,8 @@ async function getRecommendedProducts() {
   const usedIds = new Set(oneProductPerCategory.map((p) => p.id));
   const allProducts = categories.flatMap((category) => category.products);
   const extraPool = allProducts.filter((p) => !usedIds.has(p.id));
-  const extras = remainingSlots > 0 ? pickRandom(extraPool, remainingSlots) : [];
+  const extras =
+    remainingSlots > 0 ? pickRandom(extraPool, remainingSlots) : [];
 
   const categoryNameById = new Map(categories.map((c) => [c.id, c.name]));
 
@@ -63,7 +64,7 @@ export default async function Home() {
             key={brand.id}
             image={brand.logoUrl}
             label={brand.name}
-            className="w-55 h-47.5 shrink-0"
+            className="w-38 h-33 shrink-0 lg:w-49 lg:h-41.5 xl:w-55 xl:h-47.5"
           />
         ))}
       </HorizontalScrollSection>

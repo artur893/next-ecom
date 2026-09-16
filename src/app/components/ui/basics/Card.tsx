@@ -21,13 +21,19 @@ export default function Card({
       {icon}
       {image && (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={image} alt={label} className="h-16 w-auto max-w-[70%]" />
+        <img
+          src={image}
+          alt={label}
+          className="h-10 w-auto max-w-[70%] lg:h-16"
+        />
       )}
-      <h3 className="mt-2 text-heading-6 font-medium">{label}</h3>
+      <h3 className="mt-2 text-paragraph-s font-medium lg:text-heading-6">
+        {label}
+      </h3>
     </>
   );
 
-  const baseClassName = `flex flex-col items-center justify-center gap-3 rounded-md border border-[#616674] bg-neutral-900 ${className}`;
+  const baseClassName = `flex flex-col items-center justify-center gap-2 lg:gap-6 rounded-md border border-[#616674] bg-neutral-900 p-3 ${className}`;
 
   if (href) {
     return (

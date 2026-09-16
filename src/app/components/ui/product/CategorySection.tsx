@@ -32,7 +32,7 @@ export default function CategorySection({
             href={`/product?category=${category.id}`}
             icon={CATEGORY_ICONS[category.name]}
             label={category.name}
-            className="w-55 h-47.5"
+            className="w-33 h-28 shrink-0 lg:w-46 lg:h-38.5 xl:w-55 xl:h-47.5"
           />
         ))}
       </div>

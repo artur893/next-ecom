@@ -33,7 +33,7 @@ export default function ProductCard({
   return (
     <Link
       href={`/product/${id}`}
-      className="flex w-75 shrink-0 flex-col gap-4.5 rounded-md border border-gray-800 bg-neutral-900 pb-5 pl-4 pr-4 pt-4"
+      className="flex w-60 shrink-0 flex-col gap-4.5 rounded-md border border-gray-800 bg-neutral-900 pb-5 pl-4 pr-4 pt-4 min-[1120px]:w-68 xl:w-75"
     >
       <div className="relative h-51 w-full rounded-md bg-base-white">
         <button
