@@ -20,6 +20,7 @@ export { default as AttachmentIcon } from "./actions/AttachmentIcon";
 export { default as EyeIcon } from "./actions/EyeIcon";
 export { default as HeartIcon } from "./actions/HeartIcon";
 export { default as LikeIcon } from "./actions/LikeIcon";
+export { default as ShieldCheckIcon } from "./actions/ShieldCheckIcon";
 
 // Arrows / chevrons
 export { default as RightArrowIcon } from "./arrows/RightArrowIcon";

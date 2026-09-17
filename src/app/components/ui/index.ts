@@ -11,7 +11,6 @@ export { default as Card } from "./basics/Card";
 
 // Product / shop
 export { default as ProductCard } from "./product/ProductCard";
-export { default as AddToCartButton } from "./product/AddToCartButton";
 export { default as CategoryCarousel } from "./product/CategoryCarousel";
 export {
   default as CategorySection,
@@ -21,3 +20,8 @@ export { default as HorizontalScrollSection } from "./product/HorizontalScrollSe
 export { default as FilterSection } from "./product/FilterSection";
 export { default as CategoryPriceFilters } from "./product/CategoryPriceFilters";
 export { default as SortAndShowControls } from "./product/SortAndShowControls";
+export { default as Breadcrumb } from "./product/Breadcrumb";
+export type { BreadcrumbItem } from "./product/Breadcrumb";
+export { default as ProductGallery } from "./product/ProductGallery";
+export { default as ProductDescription } from "./product/ProductDescription";
+export { default as ProductPurchasePanel } from "./product/ProductPurchasePanel";
