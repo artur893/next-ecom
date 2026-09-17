@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { CheckCircleIcon, CloseIcon } from "@/app/components/icons";
-import { useNotification } from "../providers/NotificationProvider";
+import { useNotification } from "@/hooks/useNotification";
 
 const typeStyles = {
   success: "bg-[#295B40] border-success-500 text-success-100",

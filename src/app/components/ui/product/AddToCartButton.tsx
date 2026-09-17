@@ -1,6 +1,6 @@
 "use client";
 import Button from "../basics/Button";
-import { useAddToCart } from "./useAddToCart";
+import { useAddToCart } from "@/hooks/useAddToCart";
 
 export default function AddToCartButton({
   productId,

@@ -1,7 +1,7 @@
 "use client";
 import Select from "../basics/Select";
 import { SORT_LABELS } from "@/lib/productSort";
-import { useProductFilters } from "./useProductFilters";
+import { useProductFilters } from "@/hooks/useProductFilters";
 
 const SHOW_OPTIONS = [6, 9, 12, 24];
 

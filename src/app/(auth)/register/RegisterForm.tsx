@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button, Input, Select, Checkbox } from "@/app/components/ui";
 import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
 import { useRouter } from "next/navigation";
-import { useNotification } from "@/app/components/providers/NotificationProvider";
+import { useNotification } from "@/hooks/useNotification";
 
 type RegisterFormValues = {
   email: string;

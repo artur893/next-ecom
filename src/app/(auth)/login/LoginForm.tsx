@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Checkbox } from "@/app/components/ui";
 import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
-import { useNotification } from "@/app/components/providers/NotificationProvider";
+import { useNotification } from "@/hooks/useNotification";
 
 type LoginFormValues = {
   identifier: string;

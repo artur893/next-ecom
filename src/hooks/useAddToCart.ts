@@ -1,4 +1,4 @@
-import { useNotification } from "@/app/components/providers/NotificationProvider";
+import { useNotification } from "./useNotification";
 
 export function useAddToCart() {
   const { showNotification } = useNotification();

@@ -3,7 +3,7 @@ import { FocusEvent } from "react";
 import Checkbox from "../basics/Checkbox";
 import Input from "../basics/Input";
 import FilterSection from "./FilterSection";
-import { useProductFilters } from "./useProductFilters";
+import { useProductFilters } from "@/hooks/useProductFilters";
 
 interface CategoryPriceFiltersProps {
   categories: { id: number; name: string }[];

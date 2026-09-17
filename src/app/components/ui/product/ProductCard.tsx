@@ -3,7 +3,7 @@ import { MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { CartIcon } from "@/app/components/icons";
-import { useAddToCart } from "./useAddToCart";
+import { useAddToCart } from "@/hooks/useAddToCart";
 
 export interface ProductCardProps {
   id: number;

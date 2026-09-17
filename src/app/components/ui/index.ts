@@ -14,7 +14,6 @@ export { default as Card } from "./basics/Card";
 // Product / shop
 export { default as ProductCard } from "./product/ProductCard";
 export { default as AddToCartButton } from "./product/AddToCartButton";
-export { useAddToCart } from "./product/useAddToCart";
 export { default as CategoryCarousel } from "./product/CategoryCarousel";
 export {
   default as CategorySection,
