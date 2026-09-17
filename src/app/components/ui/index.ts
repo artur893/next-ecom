@@ -11,6 +11,8 @@ export { default as Card } from "./basics/Card";
 
 // Product / shop
 export { default as ProductCard } from "./product/ProductCard";
+export { default as ProductGrid } from "./product/ProductGrid";
+export { default as Pagination } from "./product/Pagination";
 export { default as CategoryCarousel } from "./product/CategoryCarousel";
 export {
   default as CategorySection,
