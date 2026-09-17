@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 import { Logo } from "@/app/components/ui";
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "@/app/components/auth/RegisterForm";
 
 export default async function Register() {
   const session = await getServerSession(authOptions);

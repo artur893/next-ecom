@@ -1,9 +1,7 @@
-// Generic
-export { default as Logo } from "./Logo";
-export { default as Notification } from "./Notification";
-export { default as SuccessCheck } from "./SuccessCheck";
-
 // Basics (generic design-system primitives, mirrors Figma "Component" list)
+export { default as Logo } from "./basics/Logo";
+export { default as Notification } from "./basics/Notification";
+export { default as SuccessCheck } from "./basics/SuccessCheck";
 export { default as Button } from "./basics/Button";
 export { default as Input } from "./basics/Input";
 export { default as Select } from "./basics/Select";
