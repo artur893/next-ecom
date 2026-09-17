@@ -21,3 +21,4 @@ export {
   CATEGORY_CARD_SIZE,
 } from "./product/CategorySection";
 export { default as HorizontalScrollSection } from "./product/HorizontalScrollSection";
+export { default as FilterSection } from "./product/FilterSection";

@@ -10,7 +10,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   ({ label, error, className = "", ...props }, ref) => {
     return (
       <div>
-        <label className="flex items-start gap-2 text-gray-300 text-sm">
+        <label className="flex items-end gap-2 text-gray-300 text-sm">
           <div className="relative mt-1 h-5 w-5 shrink-0">
             <input
               ref={ref}
