@@ -1,99 +1,122 @@
+import Link from "next/link";
+import { cookies, headers } from "next/headers";
 import { prisma } from "@/lib/prisma";
 import {
   ProductCard,
-  Checkbox,
-  Input,
-  Select,
-  FilterSection,
+  CategoryPriceFilters,
+  SortAndShowControls,
 } from "@/app/components/ui";
-import { ChevronDownIcon, ArrowRightIcon } from "@/app/components/icons";
+import { ArrowRightIcon } from "@/app/components/icons";
 
-const CATEGORY_FILTERS = [
-  "Mouse",
-  "Headphone",
-  "Keyboard",
-  "Monitor",
-  "Webcam",
-];
+const DEFAULT_LIMIT = 9;
+
+interface ProductListResponse {
+  products: {
+    id: number;
+    name: string;
+    price: number;
+    originalPrice: number | null;
+    images: string[];
+    category: { name: string };
+  }[];
+  total: number;
+}
+
+async function fetchProducts(query: URLSearchParams) {
+  const [cookieStore, headerList] = await Promise.all([cookies(), headers()]);
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+  const host = headerList.get("host");
+  const protocol = host?.startsWith("localhost") ? "http" : "https";
+
+  const response = await fetch(
+    `${protocol}://${host}/api/product?${query.toString()}`,
+    {
+      headers: { cookie: cookieHeader },
+      cache: "no-store",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Nie udało się pobrać listy produktów");
+  }
+
+  return (await response.json()) as ProductListResponse;
+}
+
+function getPageNumbers(current: number, total: number) {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+
+  const keep = new Set(
+    [1, 2, 3, total - 2, total - 1, total, current].filter(
+      (page) => page >= 1 && page <= total,
+    ),
+  );
+  const sorted = [...keep].sort((a, b) => a - b);
+
+  const result: (number | "ellipsis")[] = [];
+  let previous = 0;
+  for (const page of sorted) {
+    if (previous && page - previous > 1) result.push("ellipsis");
+    result.push(page);
+    previous = page;
+  }
+  return result;
+}
 
 export default async function ProductList({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<Record<string, string | undefined>>;
 }) {
-  const { category } = await searchParams;
-  const categoryId = category ? Number(category) : undefined;
+  const params = await searchParams;
 
-  const products = await prisma.product.findMany({
-    where: categoryId ? { categoryId } : undefined,
-    include: { category: true },
-  });
+  const limit = params.limit ? Number(params.limit) : DEFAULT_LIMIT;
+  const currentPage = params.page ? Number(params.page) : 1;
+  const offset = (currentPage - 1) * limit;
+
+  const query = new URLSearchParams();
+  if (params.category) query.set("category", params.category);
+  if (params.minPrice) query.set("minPrice", params.minPrice);
+  if (params.maxPrice) query.set("maxPrice", params.maxPrice);
+  if (params.sort) query.set("sort", params.sort);
+  query.set("limit", String(limit));
+  if (offset) query.set("offset", String(offset));
+
+  const [{ products, total }, categories] = await Promise.all([
+    fetchProducts(query),
+    prisma.category.findMany(),
+  ]);
+
+  const totalPages = Math.max(1, Math.ceil(total / limit));
+  const pageNumbers = getPageNumbers(currentPage, totalPages);
+
+  function buildPageHref(page: number) {
+    const query = new URLSearchParams();
+    if (params.category) query.set("category", params.category);
+    if (params.minPrice) query.set("minPrice", params.minPrice);
+    if (params.maxPrice) query.set("maxPrice", params.maxPrice);
+    if (params.sort) query.set("sort", params.sort);
+    if (params.limit) query.set("limit", params.limit);
+    if (page > 1) query.set("page", String(page));
+    const qs = query.toString();
+    return `/product${qs ? `?${qs}` : ""}`;
+  }
 
   return (
     <div className="flex gap-10">
       <aside className="w-64 shrink-0">
-        <div className="pb-6 mb-6">
-          <FilterSection title="Category">
-            <div className="flex flex-col gap-3">
-              <Checkbox label="All" defaultChecked />
-              {CATEGORY_FILTERS.map((name) => (
-                <Checkbox key={name} label={name} />
-              ))}
-            </div>
-          </FilterSection>
-        </div>
-
-        <FilterSection title="Price">
-          <div className="flex flex-col gap-3">
-            <Input
-              type="number"
-              min={0}
-              step="0.01"
-              placeholder="Min Price"
-              className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              rightIcon={
-                <span className="flex items-center gap-1 text-paragraph-s">
-                  USD
-                </span>
-              }
-            />
-            <Input
-              type="number"
-              min={0}
-              step="0.01"
-              placeholder="Max Price"
-              className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-              rightIcon={
-                <span className="flex items-center gap-1 text-paragraph-s">
-                  USD
-                </span>
-              }
-            />
-          </div>
-        </FilterSection>
+        <CategoryPriceFilters categories={categories} />
       </aside>
 
       <div className="w-px -my-10 bg-gray-800" />
 
       <section className="flex-1">
-        <div className="flex items-center gap-6 mb-8">
-          <div className="flex items-center gap-3">
-            <span className="text-paragraph-m font-semibold">Sort by</span>
-            <Select className="w-36">
-              <option>Latest</option>
-              <option>Price: Ascending</option>
-              <option>Price: Descending</option>
-            </Select>
-          </div>
-          <div className="flex items-center gap-3">
-            <span className="text-paragraph-m font-semibold">Show</span>
-            <Select className="w-20">
-              <option>6</option>
-              <option>12</option>
-              <option>24</option>
-            </Select>
-          </div>
-        </div>
+        <SortAndShowControls />
 
         <div className="flex flex-wrap gap-6">
           {products.map((product) => (
@@ -111,46 +134,53 @@ export default async function ProductList({
 
         <div className="mt-10 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {[1, 2, 3].map((page) => (
-              <button
-                key={page}
-                type="button"
-                className={`h-9 w-9 rounded-md text-paragraph-s ${
-                  page === 2
-                    ? "bg-primary-500 text-neutral-900"
-                    : "text-neutral-100"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-            <span className="px-1 text-neutral-300">...</span>
-            {[40, 41, 42].map((page) => (
-              <button
-                key={page}
-                type="button"
-                className="h-9 w-9 rounded-md text-paragraph-s text-neutral-100"
-              >
-                {page}
-              </button>
-            ))}
+            {pageNumbers.map((page, index) =>
+              page === "ellipsis" ? (
+                <span
+                  key={`ellipsis-${index}`}
+                  className="px-1 text-neutral-300"
+                >
+                  ...
+                </span>
+              ) : (
+                <Link
+                  key={page}
+                  href={buildPageHref(page)}
+                  className={`flex h-9 w-9 items-center justify-center rounded-md text-paragraph-s ${
+                    page === currentPage
+                      ? "bg-primary-500 text-neutral-900"
+                      : "text-neutral-100"
+                  }`}
+                >
+                  {page}
+                </Link>
+              ),
+            )}
           </div>
 
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="flex items-center gap-2 rounded-md border border-gray-700 px-4 py-2 text-paragraph-s"
+            <Link
+              href={buildPageHref(Math.max(1, currentPage - 1))}
+              aria-disabled={currentPage === 1}
+              className={`flex items-center gap-2 rounded-md border border-gray-700 px-4 py-2 text-paragraph-s ${
+                currentPage === 1 ? "pointer-events-none opacity-40" : ""
+              }`}
             >
               <ArrowRightIcon width={16} height={16} className="rotate-180" />
               Previous
-            </button>
-            <button
-              type="button"
-              className="flex items-center gap-2 rounded-md border border-gray-700 px-4 py-2 text-paragraph-s"
+            </Link>
+            <Link
+              href={buildPageHref(Math.min(totalPages, currentPage + 1))}
+              aria-disabled={currentPage === totalPages}
+              className={`flex items-center gap-2 rounded-md border border-gray-700 px-4 py-2 text-paragraph-s ${
+                currentPage === totalPages
+                  ? "pointer-events-none opacity-40"
+                  : ""
+              }`}
             >
               Next
               <ArrowRightIcon width={16} height={16} />
-            </button>
+            </Link>
           </div>
         </div>
       </section>

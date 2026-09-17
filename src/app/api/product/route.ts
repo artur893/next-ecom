@@ -1,14 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { SORT_OPTIONS } from "@/lib/productSort";
 
 export const revalidate = 0;
-
-const sortOptions: Record<string, Prisma.ProductOrderByWithRelationInput> = {
-  recent: { id: "desc" },
-  topPrice: { price: "desc" },
-  lessPrice: { price: "asc" },
-};
 
 export async function GET(request: NextRequest) {
   const categoryId = request.nextUrl.searchParams.get("category");
@@ -18,26 +12,31 @@ export async function GET(request: NextRequest) {
   const limit = request.nextUrl.searchParams.get("limit");
   const offset = request.nextUrl.searchParams.get("offset");
 
-  const product = await prisma.product.findMany({
-    select: {
-      id: true,
-      name: true,
-      price: true,
-      originalPrice: true,
-      images: true,
-      category: { select: { name: true } },
+  const where = {
+    categoryId: categoryId ? Number(categoryId) : undefined,
+    price: {
+      gte: minPrice ? Number(minPrice) : undefined,
+      lte: maxPrice ? Number(maxPrice) : undefined,
     },
-    where: {
-      categoryId: categoryId ? Number(categoryId) : undefined,
-      price: {
-        gte: minPrice ? Number(minPrice) : undefined,
-        lte: maxPrice ? Number(maxPrice) : undefined,
-      },
-    },
-    orderBy: sort ? sortOptions[sort] : undefined,
-    take: limit ? Number(limit) : 20,
-    skip: offset ? Number(offset) : undefined,
-  });
+  };
 
-  return NextResponse.json(product);
+  const [products, total] = await Promise.all([
+    prisma.product.findMany({
+      select: {
+        id: true,
+        name: true,
+        price: true,
+        originalPrice: true,
+        images: true,
+        category: { select: { name: true } },
+      },
+      where,
+      orderBy: sort ? SORT_OPTIONS[sort] : undefined,
+      take: limit ? Number(limit) : 20,
+      skip: offset ? Number(offset) : undefined,
+    }),
+    prisma.product.count({ where }),
+  ]);
+
+  return NextResponse.json({ products, total });
 }

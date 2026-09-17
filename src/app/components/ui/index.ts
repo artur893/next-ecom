@@ -22,3 +22,5 @@ export {
 } from "./product/CategorySection";
 export { default as HorizontalScrollSection } from "./product/HorizontalScrollSection";
 export { default as FilterSection } from "./product/FilterSection";
+export { default as CategoryPriceFilters } from "./product/CategoryPriceFilters";
+export { default as SortAndShowControls } from "./product/SortAndShowControls";
