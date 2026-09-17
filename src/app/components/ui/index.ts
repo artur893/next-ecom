@@ -24,4 +24,5 @@ export { default as Breadcrumb } from "./product/Breadcrumb";
 export type { BreadcrumbItem } from "./product/Breadcrumb";
 export { default as ProductGallery } from "./product/ProductGallery";
 export { default as ProductDescription } from "./product/ProductDescription";
+export { default as ProductInfo } from "./product/ProductInfo";
 export { default as ProductPurchasePanel } from "./product/ProductPurchasePanel";
