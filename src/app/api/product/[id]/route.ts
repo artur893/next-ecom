@@ -20,6 +20,10 @@ export async function GET(
 
     const product = await prisma.product.findUnique({
       where: { id: numId },
+      include: {
+        category: { select: { name: true } },
+        brand: { select: { name: true } },
+      },
     });
 
     if (!product) {

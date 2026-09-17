@@ -1,50 +1,14 @@
 import Link from "next/link";
-import { cookies, headers } from "next/headers";
-import { prisma } from "@/lib/prisma";
 import {
   ProductCard,
   CategoryPriceFilters,
   SortAndShowControls,
 } from "@/app/components/ui";
 import { ArrowRightIcon } from "@/app/components/icons";
+import { getProducts } from "@/data/getProducts";
+import { getCategories } from "@/data/getCategories";
 
 const DEFAULT_LIMIT = 9;
-
-interface ProductListResponse {
-  products: {
-    id: number;
-    name: string;
-    price: number;
-    originalPrice: number | null;
-    images: string[];
-    category: { name: string };
-  }[];
-  total: number;
-}
-
-async function fetchProducts(query: URLSearchParams) {
-  const [cookieStore, headerList] = await Promise.all([cookies(), headers()]);
-  const cookieHeader = cookieStore
-    .getAll()
-    .map((c) => `${c.name}=${c.value}`)
-    .join("; ");
-  const host = headerList.get("host");
-  const protocol = host?.startsWith("localhost") ? "http" : "https";
-
-  const response = await fetch(
-    `${protocol}://${host}/api/product?${query.toString()}`,
-    {
-      headers: { cookie: cookieHeader },
-      cache: "no-store",
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error("Nie udało się pobrać listy produktów");
-  }
-
-  return (await response.json()) as ProductListResponse;
-}
 
 function getPageNumbers(current: number, total: number) {
   if (total <= 7) {
@@ -88,8 +52,8 @@ export default async function ProductList({
   if (offset) query.set("offset", String(offset));
 
   const [{ products, total }, categories] = await Promise.all([
-    fetchProducts(query),
-    prisma.category.findMany(),
+    getProducts(query),
+    getCategories(),
   ]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));

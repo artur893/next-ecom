@@ -1,7 +1,6 @@
-import { notFound } from "next/navigation";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
 import { AddToCartButton } from "@/app/components/ui";
+import { getProduct } from "@/data/getProduct";
 
 export default async function ProductDetail({
   params,
@@ -9,12 +8,7 @@ export default async function ProductDetail({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = await prisma.product.findUnique({
-    where: { id: Number(id) },
-    include: { category: true, brand: true },
-  });
-
-  if (!product) notFound();
+  const product = await getProduct(Number(id));
 
   return (
     <section className="mt-16 flex gap-12">

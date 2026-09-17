@@ -23,7 +23,8 @@
     "next-auth": "^4.24.15",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "react-hook-form": "^7.88.0"
+    "react-hook-form": "^7.88.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
