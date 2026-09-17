@@ -72,17 +72,17 @@ export default async function ProductList({
   }
 
   return (
-    <div className="flex gap-10">
+    <div className="flex flex-col gap-10 lg:flex-row">
       <aside className="w-64 shrink-0">
         <CategoryPriceFilters categories={categories} />
       </aside>
 
-      <div className="w-px -my-10 bg-gray-800" />
+      <div className="h-px bg-gray-800 lg:-my-10 lg:h-auto lg:w-px" />
 
       <section className="flex-1">
         <SortAndShowControls />
 
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap justify-center gap-6 lg:justify-start">
           {products.map((product) => (
             <ProductCard
               key={product.id}
@@ -96,7 +96,7 @@ export default async function ProductList({
           ))}
         </div>
 
-        <div className="mt-10 flex items-center justify-between">
+        <div className="mt-10 flex flex-col items-center gap-4 lg:flex-row lg:justify-between">
           <div className="flex items-center gap-2">
             {pageNumbers.map((page, index) =>
               page === "ellipsis" ? (

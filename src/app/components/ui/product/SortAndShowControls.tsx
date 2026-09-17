@@ -11,7 +11,7 @@ export default function SortAndShowControls() {
   const limit = searchParams.get("limit") ?? "9";
 
   return (
-    <div className="flex items-center gap-6 mb-8">
+    <div className="flex flex-col items-center gap-6 mb-8 sm:flex-row sm:justify-center lg:justify-start">
       <div className="flex items-center gap-3">
         <span className="text-paragraph-m font-semibold">Sort by</span>
         <Select
