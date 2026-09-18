@@ -27,6 +27,7 @@ export default function LoginForm() {
     register,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors },
   } = useForm<LoginFormValues>({
     defaultValues: {
@@ -52,6 +53,7 @@ export default function LoginForm() {
 
     if (!result || result.error) {
       showNotification("Incorrect email/phone or password.", "error");
+      reset();
       router.push("/login");
       return;
     }
