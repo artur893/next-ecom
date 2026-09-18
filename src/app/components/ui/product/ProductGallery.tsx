@@ -1,6 +1,7 @@
 "use client";
 import { MouseEvent as ReactMouseEvent, useRef, useState } from "react";
 import Image from "next/image";
+import ProductImageFrame from "./ProductImageFrame";
 
 const DRAG_THRESHOLD_PX = 5;
 
@@ -61,21 +62,12 @@ export default function ProductGallery({
 
   return (
     <div className="w-full shrink-0 md:w-105.5">
-      <div className="aspect-422/341 w-full rounded-md border border-gray-800 bg-neutral-900 p-3 md:h-85.25 md:w-105.5">
-        <div className="h-full w-full rounded-md bg-base-white p-3">
-          <div className="relative h-full w-full">
-            {activeImage && (
-              <Image
-                src={activeImage}
-                alt={name}
-                fill
-                sizes="398px"
-                className="object-contain"
-              />
-            )}
-          </div>
-        </div>
-      </div>
+      <ProductImageFrame
+        src={activeImage}
+        alt={name}
+        sizes="398px"
+        className="aspect-422/341 w-full md:h-85.25 md:w-105.5"
+      />
       {images.length > 1 && (
         <div
           ref={scrollRef}

@@ -28,3 +28,7 @@ export { default as ProductGallery } from "./product/ProductGallery";
 export { default as ProductDescription } from "./product/ProductDescription";
 export { default as ProductInfo } from "./product/ProductInfo";
 export { default as ProductPurchasePanel } from "./product/ProductPurchasePanel";
+
+// Cart
+export { default as CartView } from "./cart/CartView";
+export type { CartItemData } from "./cart/CartItemRow";

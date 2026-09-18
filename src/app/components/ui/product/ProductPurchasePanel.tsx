@@ -81,24 +81,26 @@ export default function ProductPurchasePanel({
         <span className="text-paragraph-s text-[#FCFCFC]">Stock : {stock}</span>
       </div>
 
-      <div className="mt-6 flex items-center justify-between">
-        <span className="text-paragraph-l font-medium text-neutral-300">
-          Subtotal
-        </span>
-        <span className="text-heading-5 font-medium text-[#FCFCFC]">
-          ${(price * quantity).toFixed(2)}
-        </span>
-      </div>
+      <div className="mt-6 flex items-center justify-between gap-4">
+        <div>
+          <span className="block text-paragraph-l font-medium text-neutral-300">
+            Subtotal
+          </span>
+          <span className="text-heading-6 font-medium text-[#FCFCFC]">
+            ${(price * quantity).toFixed(2)}
+          </span>
+        </div>
 
-      <Button
-        variant="outline"
-        size="xl"
-        className="mt-6 w-full font-medium"
-        rightIcon={<CartIcon width={20} height={20} />}
-        onClick={() => addToCart(productId)}
-      >
-        Add to Cart
-      </Button>
+        <Button
+          variant="outline"
+          size="xl"
+          className="font-medium"
+          rightIcon={<CartIcon width={20} height={20} />}
+          onClick={() => addToCart(productId)}
+        >
+          Add to Cart
+        </Button>
+      </div>
     </div>
   );
 }
