@@ -1,21 +1,65 @@
 "use client";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import { COUNTRIES } from "@/lib/countries";
+import { Address } from "@/lib/types/address";
+import { useSaveAddress } from "@/hooks/useSaveAddress";
+import { useSetMainAddress } from "@/hooks/useSetMainAddress";
 import Select from "../basics/Select";
+import Input from "../basics/Input";
 import Checkbox from "../basics/Checkbox";
+import Button from "../basics/Button";
 
 type Tab = "existing" | "new";
 
-const EXISTING_ADDRESS = {
-  label: "Main Address",
-  line: "Bangalau Road No 23, RT 4/RW 6, Kinajaya",
-  country: "Indonesia",
-  province: "Jakarta",
-  city: "Jakarta",
-  postalCode: "12819",
+const EMPTY_FORM = {
+  country: COUNTRIES[0],
+  province: "",
+  city: "",
+  postalCode: "",
+  line: "",
 };
 
-export default function AddressSection() {
-  const [tab, setTab] = useState<Tab>("existing");
+export default function AddressSection({
+  addresses: initialAddresses,
+}: {
+  addresses: Address[];
+}) {
+  const [addresses, setAddresses] = useState(initialAddresses);
+  const [tab, setTab] = useState<Tab>(
+    initialAddresses.length > 0 ? "existing" : "new",
+  );
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [isMain, setIsMain] = useState(addresses.length === 0);
+  const [saving, setSaving] = useState(false);
+  const saveAddress = useSaveAddress();
+  const setMainAddress = useSetMainAddress();
+
+  async function handleSetMain(addressId: number) {
+    const ok = await setMainAddress(addressId);
+    if (!ok) return;
+
+    setAddresses((prev) =>
+      prev.map((a) => ({ ...a, isMain: a.id === addressId })),
+    );
+  }
+
+  async function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    setSaving(true);
+
+    const created = await saveAddress({ ...form, isMain });
+
+    setSaving(false);
+    if (!created) return;
+
+    setAddresses((prev) =>
+      isMain
+        ? [...prev.map((a) => ({ ...a, isMain: false })), created]
+        : [...prev, created],
+    );
+    setForm(EMPTY_FORM);
+    setTab("existing");
+  }
 
   return (
     <div>
@@ -48,63 +92,112 @@ export default function AddressSection() {
         </div>
 
         {tab === "existing" ? (
-          <div className="mt-6">
-            <div className="flex items-center gap-3">
-              <span className="text-paragraph-m text-neutral-300">
-                Address
-              </span>
-              <span className="rounded bg-primary-500 px-2 py-1 text-paragraph-xs font-medium text-primary-100">
-                {EXISTING_ADDRESS.label}
-              </span>
-            </div>
-            <p className="mt-3 text-paragraph-l font-medium text-[#FCFCFC]">
-              {EXISTING_ADDRESS.line}
-            </p>
+          addresses.length > 0 ? (
+            <div className="mt-6 flex flex-col gap-6">
+              {addresses.map((address, index) => (
+                <div key={address.id}>
+                  {index > 0 && <div className="mb-6 border-t border-gray-800" />}
 
-            <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
-              <AddressField label="Country" value={EXISTING_ADDRESS.country} />
-              <AddressField
-                label="Province"
-                value={EXISTING_ADDRESS.province}
-              />
-              <AddressField label="City" value={EXISTING_ADDRESS.city} />
-              <AddressField
-                label="Postal Code"
-                value={EXISTING_ADDRESS.postalCode}
-              />
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-paragraph-m text-neutral-300">
+                        Address
+                      </span>
+                      {address.isMain && (
+                        <span className="rounded bg-primary-500 px-2 py-1 text-paragraph-xs font-medium text-primary-100">
+                          Main Address
+                        </span>
+                      )}
+                    </div>
+                    {!address.isMain && (
+                      <button
+                        type="button"
+                        onClick={() => handleSetMain(address.id)}
+                        className="text-paragraph-s font-medium text-primary-500"
+                      >
+                        Set as main
+                      </button>
+                    )}
+                  </div>
+
+                  <p className="mt-3 text-paragraph-l font-medium text-[#FCFCFC]">
+                    {address.line}
+                  </p>
+
+                  <div className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-4">
+                    <AddressField label="Country" value={address.country} />
+                    <AddressField label="Province" value={address.province} />
+                    <AddressField label="City" value={address.city} />
+                    <AddressField
+                      label="Postal Code"
+                      value={address.postalCode}
+                    />
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          ) : (
+            <p className="mt-6 text-paragraph-m text-neutral-400">
+              You don&apos;t have any saved addresses yet.
+            </p>
+          )
         ) : (
-          <div className="mt-6 flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Select defaultValue="Indonesia">
-                <option value="Indonesia">Indonesia</option>
+              <Select
+                value={form.country}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, country: e.target.value }))
+                }
+              >
+                {COUNTRIES.map((country) => (
+                  <option key={country}>{country}</option>
+                ))}
               </Select>
-              <Select defaultValue="">
-                <option value="" disabled>
-                  Province
-                </option>
-              </Select>
+              <Input
+                placeholder="Province"
+                required
+                value={form.province}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, province: e.target.value }))
+                }
+              />
             </div>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Select defaultValue="">
-                <option value="" disabled>
-                  City
-                </option>
-              </Select>
-              <Select defaultValue="">
-                <option value="" disabled>
-                  Postal Code
-                </option>
-              </Select>
+              <Input
+                placeholder="City"
+                required
+                value={form.city}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, city: e.target.value }))
+                }
+              />
+              <Input
+                placeholder="Postal Code"
+                required
+                value={form.postalCode}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, postalCode: e.target.value }))
+                }
+              />
             </div>
-            <textarea
-              placeholder="Input Complete Address"
-              rows={4}
-              className="w-full resize-none rounded-md border border-gray-700 bg-base-shark p-3 text-white placeholder:text-neutral-400"
+            <Input
+              placeholder="Street"
+              required
+              value={form.line}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, line: e.target.value }))
+              }
             />
-            <Checkbox label="Make it the main address" defaultChecked />
-          </div>
+            <Checkbox
+              label="Make it the main address"
+              checked={isMain}
+              onChange={(e) => setIsMain(e.target.checked)}
+            />
+            <Button type="submit" disabled={saving} className="w-fit">
+              {saving ? "Saving..." : "Save Address"}
+            </Button>
+          </form>
         )}
       </div>
     </div>

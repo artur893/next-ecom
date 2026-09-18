@@ -14,6 +14,19 @@ model User {
   mobile String?
   country String?
   cart Cart?
+  addresses Address[]
+}
+
+model Address {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  country String
+  province String
+  city String
+  postalCode String
+  line String
+  isMain Boolean @default(false)
 }
 
 model Category {

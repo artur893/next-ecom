@@ -6,6 +6,7 @@ import {
 } from "@/app/components/ui";
 import { ApplePayIcon, ShieldCheckIcon } from "@/app/components/icons";
 import { CartItem } from "@/lib/types/cart";
+import { getAddresses } from "@/data/getAddresses";
 
 const MOCK_ITEM: CartItem = {
   id: 1,
@@ -24,7 +25,8 @@ const SHIPPING_PRICE = 5;
 const SHIPPING_INSURANCE = 6;
 const SERVICE_FEES = 0.5;
 
-export default function Checkout() {
+export default async function Checkout() {
+  const addresses = await getAddresses();
   const productTotal = MOCK_ITEM.product.price * MOCK_ITEM.quantity;
 
   return (
@@ -51,7 +53,7 @@ export default function Checkout() {
           </div>
 
           <div className="mt-10">
-            <AddressSection />
+            <AddressSection addresses={addresses} />
           </div>
 
           <div className="mt-10">

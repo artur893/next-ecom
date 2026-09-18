@@ -5,6 +5,7 @@ import { Button, Input, Select, Checkbox } from "@/app/components/ui";
 import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
 import { useRouter } from "next/navigation";
 import { useNotification } from "@/hooks/useNotification";
+import { COUNTRIES } from "@/lib/countries";
 
 type RegisterFormValues = {
   email: string;
@@ -130,11 +131,9 @@ export default function RegisterForm() {
         />
 
         <Select label="Country or region" {...register("country")}>
-          <option>Poland</option>
-          <option>Germany</option>
-          <option>United Kingdom</option>
-          <option>United States</option>
-          <option>Indonesia</option>
+          {COUNTRIES.map((country) => (
+            <option key={country}>{country}</option>
+          ))}
         </Select>
 
         <Checkbox
