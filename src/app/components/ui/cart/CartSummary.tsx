@@ -3,9 +3,11 @@ import Button from "../basics/Button";
 export default function CartSummary({
   itemCount,
   subtotal,
+  checkoutHref,
 }: {
   itemCount: number;
   subtotal: number;
+  checkoutHref: string;
 }) {
   return (
     <div className="ml-9 w-[calc(100%-2.25rem)] shrink-0 rounded-md border border-gray-800 bg-neutral-900 p-6 xl:ml-0 xl:w-full xl:max-w-90">
@@ -31,7 +33,12 @@ export default function CartSummary({
         </span>
       </div>
 
-      <Button size="xl" className="mt-6 w-full font-medium">
+      <Button
+        href={itemCount > 0 ? checkoutHref : undefined}
+        disabled={itemCount === 0}
+        size="xl"
+        className="mt-6 w-full font-medium"
+      >
         Checkout
       </Button>
     </div>

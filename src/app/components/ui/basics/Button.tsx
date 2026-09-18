@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes, ReactNode, forwardRef } from "react";
+import Link from "next/link";
 
 type ButtonSize = "xs" | "s" | "m" | "l" | "xl" | "xxl";
 type ButtonVariant = "solid" | "outline" | "text";
@@ -8,6 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
+  href?: string;
 }
 
 const sizeMap = {
@@ -40,12 +42,32 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       rightIcon,
       className,
       type = "button",
+      href,
       ...props
     },
     ref,
   ) => {
     const sizeClass = sizeMap[size];
     const variantClass = variantMap[variant];
+    const content = (
+      <>
+        {leftIcon && <span className="mr-3.5">{leftIcon}</span>}
+        {children}
+        {rightIcon && <span className="ml-3.5">{rightIcon}</span>}
+      </>
+    );
+
+    if (href) {
+      return (
+        <Link
+          href={href}
+          className={`${base} ${sizeClass} ${variantClass} ${className}`}
+        >
+          {content}
+        </Link>
+      );
+    }
+
     return (
       <button
         ref={ref}
@@ -53,9 +75,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={`${base} ${sizeClass} ${variantClass} ${className}`}
         {...props}
       >
-        {leftIcon && <span className="mr-3.5">{leftIcon}</span>}
-        {children}
-        {rightIcon && <span className="ml-3.5">{rightIcon}</span>}
+        {content}
       </button>
     );
   },

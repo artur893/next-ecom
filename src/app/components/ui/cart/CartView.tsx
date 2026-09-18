@@ -68,6 +68,7 @@ export default function CartView({ items: initialItems }: { items: CartItem[] })
     0,
   );
   const itemCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+  const checkoutHref = `/checkout?items=${selectedItems.map((item) => item.id).join(",")}`;
 
   return (
     <div className="mt-6 flex flex-col gap-8 xl:flex-row xl:items-start">
@@ -94,7 +95,11 @@ export default function CartView({ items: initialItems }: { items: CartItem[] })
         </div>
       </div>
 
-      <CartSummary itemCount={itemCount} subtotal={subtotal} />
+      <CartSummary
+        itemCount={itemCount}
+        subtotal={subtotal}
+        checkoutHref={checkoutHref}
+      />
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { COUNTRIES } from "@/lib/countries";
 import { Address } from "@/lib/types/address";
 import { useSaveAddress } from "@/hooks/useSaveAddress";
 import { useSetMainAddress } from "@/hooks/useSetMainAddress";
+import { useRemoveAddress } from "@/hooks/useRemoveAddress";
+import { CloseIcon } from "@/app/components/icons";
 import Select from "../basics/Select";
 import Input from "../basics/Input";
 import Checkbox from "../basics/Checkbox";
@@ -33,6 +35,7 @@ export default function AddressSection({
   const [saving, setSaving] = useState(false);
   const saveAddress = useSaveAddress();
   const setMainAddress = useSetMainAddress();
+  const removeAddress = useRemoveAddress();
 
   async function handleSetMain(addressId: number) {
     const ok = await setMainAddress(addressId);
@@ -41,6 +44,13 @@ export default function AddressSection({
     setAddresses((prev) =>
       prev.map((a) => ({ ...a, isMain: a.id === addressId })),
     );
+  }
+
+  async function handleRemove(addressId: number) {
+    const ok = await removeAddress(addressId);
+    if (!ok) return;
+
+    setAddresses((prev) => prev.filter((a) => a.id !== addressId));
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -110,13 +120,23 @@ export default function AddressSection({
                       )}
                     </div>
                     {!address.isMain && (
-                      <button
-                        type="button"
-                        onClick={() => handleSetMain(address.id)}
-                        className="text-paragraph-s font-medium text-primary-500"
-                      >
-                        Set as main
-                      </button>
+                      <div className="flex items-center gap-4">
+                        <button
+                          type="button"
+                          onClick={() => handleSetMain(address.id)}
+                          className="text-paragraph-s font-medium text-primary-500"
+                        >
+                          Set as main
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleRemove(address.id)}
+                          aria-label="Remove address"
+                          className="text-danger-500"
+                        >
+                          <CloseIcon width={18} height={18} />
+                        </button>
+                      </div>
                     )}
                   </div>
 

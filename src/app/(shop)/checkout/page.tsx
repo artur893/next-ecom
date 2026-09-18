@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import {
   Breadcrumb,
   OrderItemCard,
@@ -5,37 +6,47 @@ import {
   OrderSummary,
 } from "@/app/components/ui";
 import { ApplePayIcon, ShieldCheckIcon } from "@/app/components/icons";
-import { CartItem } from "@/lib/types/cart";
 import { getAddresses } from "@/data/getAddresses";
-
-const MOCK_ITEM: CartItem = {
-  id: 1,
-  quantity: 10,
-  product: {
-    id: 1,
-    name: "Rexus Xierra X16",
-    category: { name: "Mouse" },
-    price: 25.99,
-    images: ["https://images.morele.net/i1064/4143406_14_i1064.jpg"],
-  },
-};
+import { getCart } from "@/data/getCart";
 
 const PRODUCT_PROTECTION_PRICE = 1;
 const SHIPPING_PRICE = 5;
 const SHIPPING_INSURANCE = 6;
 const SERVICE_FEES = 0.5;
 
-export default async function Checkout() {
-  const addresses = await getAddresses();
-  const productTotal = MOCK_ITEM.product.price * MOCK_ITEM.quantity;
+export default async function Checkout({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | undefined>>;
+}) {
+  const params = await searchParams;
+  const selectedIds = params.items
+    ?.split(",")
+    .map(Number)
+    .filter((id) => !isNaN(id));
+
+  const [cart, addresses] = await Promise.all([getCart(), getAddresses()]);
+
+  const items = selectedIds
+    ? cart.filter((item) => selectedIds.includes(item.id))
+    : cart;
+
+  if (items.length === 0) {
+    redirect("/cart");
+  }
+
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const productTotal = items.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0,
+  );
 
   return (
     <div>
       <Breadcrumb
         items={[
           { label: "Home", href: "/home" },
-          { label: "Product", href: "/product" },
-          { label: MOCK_ITEM.product.name, href: `/product/${MOCK_ITEM.product.id}` },
+          { label: "Cart", href: "/cart" },
           { label: "Checkout" },
         ]}
       />
@@ -45,11 +56,14 @@ export default async function Checkout() {
           <h1 className="text-heading-6 font-medium text-[#FCFCFC]">
             Your Order
           </h1>
-          <div className="mt-4">
-            <OrderItemCard
-              item={MOCK_ITEM}
-              protectionPrice={PRODUCT_PROTECTION_PRICE}
-            />
+          <div className="mt-4 flex flex-col gap-6">
+            {items.map((item) => (
+              <OrderItemCard
+                key={item.id}
+                item={item}
+                protectionPrice={PRODUCT_PROTECTION_PRICE}
+              />
+            ))}
           </div>
 
           <div className="mt-10">
@@ -82,7 +96,7 @@ export default async function Checkout() {
         </div>
 
         <OrderSummary
-          itemCount={MOCK_ITEM.quantity}
+          itemCount={itemCount}
           productPrice={productTotal}
           productProtection={PRODUCT_PROTECTION_PRICE}
           shippingPrice={SHIPPING_PRICE}
