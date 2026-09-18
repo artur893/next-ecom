@@ -66,7 +66,7 @@ export default async function OrderConfirmation({
             {order.items.map((item) => (
               <div
                 key={item.id}
-                className="flex gap-4 rounded-md border border-gray-800 p-4"
+                className="flex flex-col items-center gap-4 rounded-md border border-gray-800 p-4 xs:flex-row xs:items-stretch"
               >
                 <ProductImageFrame
                   src={item.product.images[0]}
@@ -76,7 +76,7 @@ export default async function OrderConfirmation({
                   innerClassName="p-2"
                 />
 
-                <div className="flex min-w-0 flex-1 flex-col">
+                <div className="flex w-full min-w-0 flex-1 flex-col">
                   <p className="text-heading-7 font-medium text-[#FCFCFC]">
                     {item.product.name}
                   </p>
@@ -148,7 +148,7 @@ export default async function OrderConfirmation({
 
 function SummaryRow({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-1 xs:flex-row xs:items-center xs:justify-between xs:gap-0">
       <span className="text-paragraph-m text-neutral-300">{label}</span>
       <span className="text-paragraph-m font-medium text-[#FCFCFC]">
         ${value.toFixed(2)}

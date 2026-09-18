@@ -72,7 +72,7 @@ export default function OrderSummary({
 
 function SummaryRow({ label, value }: { label: string; value: number }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-1 xs:flex-row xs:items-center xs:justify-between xs:gap-0">
       <span className="text-paragraph-m text-neutral-300">{label}</span>
       <span className="text-paragraph-m font-medium text-[#FCFCFC]">
         ${value.toFixed(2)}

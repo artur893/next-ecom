@@ -11,6 +11,8 @@
   --font-inter: var(--font-inter);
   --font-sans: var(--font-inter);
 
+  --breakpoint-xs: 500px;
+
   /* Gray */
   --color-gray-50: #f7f8f8;
   --color-gray-100: #edeef1;
