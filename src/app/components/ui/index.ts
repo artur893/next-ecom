@@ -31,3 +31,8 @@ export { default as ProductPurchasePanel } from "./product/ProductPurchasePanel"
 
 // Cart
 export { default as CartView } from "./cart/CartView";
+
+// Checkout
+export { default as OrderItemCard } from "./checkout/OrderItemCard";
+export { default as AddressSection } from "./checkout/AddressSection";
+export { default as OrderSummary } from "./checkout/OrderSummary";
