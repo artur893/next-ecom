@@ -113,14 +113,11 @@ export default function AddressSection({
                       <span className="text-paragraph-m text-neutral-300">
                         Address
                       </span>
-                      {address.isMain && (
+                      {address.isMain ? (
                         <span className="rounded bg-primary-500 px-2 py-1 text-paragraph-xs font-medium text-primary-100">
                           Main Address
                         </span>
-                      )}
-                    </div>
-                    {!address.isMain && (
-                      <div className="flex items-center gap-4">
+                      ) : (
                         <button
                           type="button"
                           onClick={() => handleSetMain(address.id)}
@@ -128,15 +125,17 @@ export default function AddressSection({
                         >
                           Set as main
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => handleRemove(address.id)}
-                          aria-label="Remove address"
-                          className="text-danger-500"
-                        >
-                          <CloseIcon width={18} height={18} />
-                        </button>
-                      </div>
+                      )}
+                    </div>
+                    {!address.isMain && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemove(address.id)}
+                        aria-label="Remove address"
+                        className="text-danger-500"
+                      >
+                        <CloseIcon width={18} height={18} />
+                      </button>
                     )}
                   </div>
 

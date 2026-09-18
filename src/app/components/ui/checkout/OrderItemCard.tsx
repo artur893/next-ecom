@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { CheckIcon, MinusIcon, PlusIcon } from "@/app/components/icons";
 import { CartItem } from "@/lib/types/cart";
 import ProductImageFrame from "../product/ProductImageFrame";
@@ -7,13 +6,16 @@ import ProductImageFrame from "../product/ProductImageFrame";
 export default function OrderItemCard({
   item,
   protectionPrice,
+  protectionEnabled,
+  onToggleProtection,
+  onQuantityChange,
 }: {
   item: CartItem;
   protectionPrice: number;
+  protectionEnabled: boolean;
+  onToggleProtection: () => void;
+  onQuantityChange: (quantity: number) => void;
 }) {
-  const [quantity, setQuantity] = useState(item.quantity);
-  const [protectionEnabled, setProtectionEnabled] = useState(true);
-
   return (
     <div className="rounded-md border border-gray-800 bg-neutral-900">
       <div className="flex flex-col items-center gap-4 p-6 sm:flex-row sm:items-start">
@@ -48,17 +50,17 @@ export default function OrderItemCard({
               <div className="flex items-center gap-4 rounded-md border border-[#FCFCFC] px-3 py-2 text-[#FCFCFC]">
                 <button
                   type="button"
-                  onClick={() => setQuantity((value) => Math.max(1, value - 1))}
+                  onClick={() => onQuantityChange(Math.max(1, item.quantity - 1))}
                   aria-label="Decrease quantity"
                 >
                   <MinusIcon width={16} height={16} />
                 </button>
                 <span className="w-6 text-center text-paragraph-m">
-                  {quantity}
+                  {item.quantity}
                 </span>
                 <button
                   type="button"
-                  onClick={() => setQuantity((value) => value + 1)}
+                  onClick={() => onQuantityChange(item.quantity + 1)}
                   aria-label="Increase quantity"
                 >
                   <PlusIcon width={16} height={16} />
@@ -72,7 +74,7 @@ export default function OrderItemCard({
       <div className="flex items-start gap-3 border-t border-gray-800 p-6">
         <button
           type="button"
-          onClick={() => setProtectionEnabled((value) => !value)}
+          onClick={onToggleProtection}
           aria-label="Toggle product protection"
           className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${
             protectionEnabled
