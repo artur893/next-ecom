@@ -15,6 +15,7 @@ model User {
   country String?
   cart Cart?
   addresses Address[]
+  orders Order[]
 }
 
 model Address {
@@ -57,6 +58,7 @@ model Product {
   brandId Int?
   brand Brand? @relation(fields: [brandId], references: [id])
   cartItems CartItem[]
+  orderItems OrderItem[]
 }
 
 model Cart {
@@ -75,4 +77,32 @@ model CartItem {
   quantity Int @default(1)
 
   @@unique([cartId, productId])
+}
+
+model Order {
+  id Int @id @default(autoincrement())
+  invoiceNumber String @unique
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  paymentMethod String
+  shippingMethod String
+  productTotal Float
+  productProtection Float
+  shippingPrice Float
+  shippingInsurance Float
+  serviceFees Float
+  grandTotal Float
+  status String @default("Success")
+  createdAt DateTime @default(now())
+  items OrderItem[]
+}
+
+model OrderItem {
+  id Int @id @default(autoincrement())
+  orderId Int
+  order Order @relation(fields: [orderId], references: [id])
+  productId Int
+  product Product @relation(fields: [productId], references: [id])
+  quantity Int
+  price Float
 }

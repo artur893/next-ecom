@@ -8,6 +8,8 @@ export default function OrderSummary({
   shippingInsurance,
   serviceFees,
   grandTotal,
+  onPayNow,
+  isPaying,
 }: {
   itemCount: number;
   productPrice: number;
@@ -16,6 +18,8 @@ export default function OrderSummary({
   shippingInsurance: number;
   serviceFees: number;
   grandTotal: number;
+  onPayNow: () => void;
+  isPaying: boolean;
 }) {
   return (
     <div className="w-full shrink-0 rounded-md border border-gray-800 bg-neutral-900 p-6 xl:max-w-90">
@@ -54,8 +58,13 @@ export default function OrderSummary({
         </span>
       </div>
 
-      <Button size="xl" className="mt-6 w-full font-medium">
-        Pay Now
+      <Button
+        onClick={onPayNow}
+        disabled={isPaying}
+        size="xl"
+        className="mt-6 w-full font-medium"
+      >
+        {isPaying ? "Processing..." : "Pay Now"}
       </Button>
     </div>
   );
