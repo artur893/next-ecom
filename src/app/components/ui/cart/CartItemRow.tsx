@@ -22,7 +22,7 @@ export default function CartItemRow({
       <Checkbox checked={selected} onChange={onToggleSelect} />
 
       <div className="flex-1 rounded-md border border-gray-800 bg-neutral-900 p-6">
-        <div className="flex gap-4">
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
           <ProductImageFrame
             src={item.product.images[0]}
             alt={item.product.name}

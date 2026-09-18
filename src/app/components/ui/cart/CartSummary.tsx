@@ -8,7 +8,7 @@ export default function CartSummary({
   subtotal: number;
 }) {
   return (
-    <div className="w-full shrink-0 rounded-md border border-gray-800 bg-neutral-900 p-6 md:max-w-90">
+    <div className="ml-9 w-[calc(100%-2.25rem)] shrink-0 rounded-md border border-gray-800 bg-neutral-900 p-6 xl:ml-0 xl:w-full xl:max-w-90">
       <h2 className="text-paragraph-l font-medium text-[#FCFCFC]">
         Total Product
       </h2>
