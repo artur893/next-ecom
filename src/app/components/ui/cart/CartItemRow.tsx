@@ -1,16 +1,8 @@
 "use client";
 import { TrashIcon, MinusIcon, PlusIcon } from "@/app/components/icons";
+import { CartItem } from "@/lib/types/cart";
 import Checkbox from "../basics/Checkbox";
 import ProductImageFrame from "../product/ProductImageFrame";
-
-export interface CartItemData {
-  id: number;
-  name: string;
-  categoryName: string;
-  price: number;
-  image?: string;
-  quantity: number;
-}
 
 export default function CartItemRow({
   item,
@@ -19,7 +11,7 @@ export default function CartItemRow({
   onQuantityChange,
   onRemove,
 }: {
-  item: CartItemData;
+  item: CartItem;
   selected: boolean;
   onToggleSelect: () => void;
   onQuantityChange: (quantity: number) => void;
@@ -32,8 +24,8 @@ export default function CartItemRow({
       <div className="flex-1 rounded-md border border-gray-800 bg-neutral-900 p-6">
         <div className="flex gap-4">
           <ProductImageFrame
-            src={item.image}
-            alt={item.name}
+            src={item.product.images[0]}
+            alt={item.product.name}
             sizes="172px"
             className="h-34.5 w-43 shrink-0"
             innerClassName="p-2"
@@ -42,7 +34,7 @@ export default function CartItemRow({
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-4">
               <p className="text-heading-7 font-medium text-[#FCFCFC]">
-                {item.name}
+                {item.product.name}
               </p>
               <button type="button" onClick={onRemove} aria-label="Remove item">
                 <TrashIcon width={30} height={30} />
@@ -50,12 +42,12 @@ export default function CartItemRow({
             </div>
 
             <span className="mt-2 inline-block rounded bg-primary-500 px-2 py-1 text-paragraph-s font-medium text-primary-100">
-              {item.categoryName}
+              {item.product.category.name}
             </span>
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
               <p className="text-heading-6 font-medium text-[#FCFCFC]">
-                ${item.price.toFixed(2)}
+                ${item.product.price.toFixed(2)}
               </p>
               <div className="flex gap-6 items-center">
                 <button

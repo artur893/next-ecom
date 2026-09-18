@@ -31,4 +31,3 @@ export { default as ProductPurchasePanel } from "./product/ProductPurchasePanel"
 
 // Cart
 export { default as CartView } from "./cart/CartView";
-export type { CartItemData } from "./cart/CartItemRow";

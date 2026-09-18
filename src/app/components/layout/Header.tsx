@@ -20,7 +20,9 @@ export default async function Header() {
       <div className="flex items-center">
         {initial ? (
           <>
-            <CartIcon className="text-neutral-100 flex items-center justify-center mr-7" />
+            <Link href="/cart" className="mr-7 flex items-center justify-center">
+              <CartIcon className="text-neutral-100" />
+            </Link>
             <UserAvatarButton initial={initial} />
           </>
         ) : (
