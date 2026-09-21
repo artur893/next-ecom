@@ -40,11 +40,16 @@ export default function RegisterForm() {
     },
   });
 
-  async function onSubmit(data: RegisterFormValues) {
+  async function onSubmit({
+    email,
+    password,
+    mobile,
+    country,
+  }: RegisterFormValues) {
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email, password, mobile, country }),
     });
 
     if (!response.ok) {
