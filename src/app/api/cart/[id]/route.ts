@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@/lib/apiHandler";
 
 async function findOwnedCartItem(cartItemId: number, userId: number) {
   const cartItem = await prisma.cartItem.findUnique({
@@ -15,68 +16,72 @@ async function findOwnedCartItem(cartItemId: number, userId: number) {
   return cartItem?.cart.userId === userId ? cartItem : null;
 }
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const session = await getServerSession(authOptions);
+export const PATCH = withErrorHandling(
+  async (
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
+  ) => {
+    const session = await getServerSession(authOptions);
 
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const { id } = await params;
-  const { quantity } = await request.json();
+    const { id } = await params;
+    const { quantity } = await request.json();
 
-  if (!quantity || Number(quantity) < 1) {
-    return NextResponse.json(
-      { error: "quantity must be at least 1" },
-      { status: 400 },
-    );
-  }
+    if (!quantity || Number(quantity) < 1) {
+      return NextResponse.json(
+        { error: "quantity must be at least 1" },
+        { status: 400 },
+      );
+    }
 
-  const userId = Number(session.user.id);
-  const cartItem = await findOwnedCartItem(Number(id), userId);
+    const userId = Number(session.user.id);
+    const cartItem = await findOwnedCartItem(Number(id), userId);
 
-  if (!cartItem) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
+    if (!cartItem) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
-  if (Number(quantity) > cartItem.product.stock) {
-    return NextResponse.json(
-      {
-        error: `Only ${cartItem.product.stock} left in stock for ${cartItem.product.name}`,
-      },
-      { status: 400 },
-    );
-  }
+    if (Number(quantity) > cartItem.product.stock) {
+      return NextResponse.json(
+        {
+          error: `Only ${cartItem.product.stock} left in stock for ${cartItem.product.name}`,
+        },
+        { status: 400 },
+      );
+    }
 
-  const updated = await prisma.cartItem.update({
-    where: { id: Number(id) },
-    data: { quantity: Number(quantity) },
-  });
+    const updated = await prisma.cartItem.update({
+      where: { id: Number(id) },
+      data: { quantity: Number(quantity) },
+    });
 
-  return NextResponse.json(updated);
-}
+    return NextResponse.json(updated);
+  },
+);
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const session = await getServerSession(authOptions);
+export const DELETE = withErrorHandling(
+  async (
+    _request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
+  ) => {
+    const session = await getServerSession(authOptions);
 
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const { id } = await params;
-  const userId = Number(session.user.id);
+    const { id } = await params;
+    const userId = Number(session.user.id);
 
-  if (!(await findOwnedCartItem(Number(id), userId))) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
+    if (!(await findOwnedCartItem(Number(id), userId))) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
-  await prisma.cartItem.delete({ where: { id: Number(id) } });
+    await prisma.cartItem.delete({ where: { id: Number(id) } });
 
-  return NextResponse.json({ success: true });
-}
+    return NextResponse.json({ success: true });
+  },
+);

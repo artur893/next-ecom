@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { SORT_OPTIONS } from "@/lib/productSort";
+import { withErrorHandling } from "@/lib/apiHandler";
 
 export const revalidate = 0;
 
-export async function GET(request: NextRequest) {
+export const GET = withErrorHandling(async (request: NextRequest) => {
   const categoryId = request.nextUrl.searchParams.get("category");
   const minPrice = request.nextUrl.searchParams.get("minPrice");
   const maxPrice = request.nextUrl.searchParams.get("maxPrice");
@@ -39,4 +40,4 @@ export async function GET(request: NextRequest) {
   ]);
 
   return NextResponse.json({ products, total });
-}
+});

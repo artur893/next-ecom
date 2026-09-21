@@ -2,76 +2,81 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@/lib/apiHandler";
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const session = await getServerSession(authOptions);
+export const PATCH = withErrorHandling(
+  async (
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
+  ) => {
+    const session = await getServerSession(authOptions);
 
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const { id } = await params;
-  const userId = Number(session.user.id);
-  const addressId = Number(id);
+    const { id } = await params;
+    const userId = Number(session.user.id);
+    const addressId = Number(id);
 
-  const address = await prisma.address.findUnique({
-    where: { id: addressId },
-    select: { userId: true },
-  });
-
-  if (!address || address.userId !== userId) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
-
-  const updated = await prisma.$transaction(async (tx) => {
-    await tx.address.updateMany({
-      where: { userId, isMain: true },
-      data: { isMain: false },
-    });
-
-    return tx.address.update({
+    const address = await prisma.address.findUnique({
       where: { id: addressId },
-      data: { isMain: true },
+      select: { userId: true },
     });
-  });
 
-  return NextResponse.json(updated);
-}
+    if (!address || address.userId !== userId) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const session = await getServerSession(authOptions);
+    const updated = await prisma.$transaction(async (tx) => {
+      await tx.address.updateMany({
+        where: { userId, isMain: true },
+        data: { isMain: false },
+      });
 
-  if (!session?.user?.id) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+      return tx.address.update({
+        where: { id: addressId },
+        data: { isMain: true },
+      });
+    });
 
-  const { id } = await params;
-  const userId = Number(session.user.id);
-  const addressId = Number(id);
+    return NextResponse.json(updated);
+  },
+);
 
-  const address = await prisma.address.findUnique({
-    where: { id: addressId },
-    select: { userId: true, isMain: true },
-  });
+export const DELETE = withErrorHandling(
+  async (
+    _request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
+  ) => {
+    const session = await getServerSession(authOptions);
 
-  if (!address || address.userId !== userId) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
-  }
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  if (address.isMain) {
-    return NextResponse.json(
-      { error: "Cannot delete the main address" },
-      { status: 400 },
-    );
-  }
+    const { id } = await params;
+    const userId = Number(session.user.id);
+    const addressId = Number(id);
 
-  await prisma.address.delete({ where: { id: addressId } });
+    const address = await prisma.address.findUnique({
+      where: { id: addressId },
+      select: { userId: true, isMain: true },
+    });
 
-  return NextResponse.json({ success: true });
-}
+    if (!address || address.userId !== userId) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
+
+    if (address.isMain) {
+      return NextResponse.json(
+        { error: "Cannot delete the main address" },
+        { status: 400 },
+      );
+    }
+
+    await prisma.address.delete({ where: { id: addressId } });
+
+    return NextResponse.json({ success: true });
+  },
+);

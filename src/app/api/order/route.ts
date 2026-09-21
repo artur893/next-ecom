@@ -9,8 +9,9 @@ import {
   SHIPPING_INSURANCE,
   SERVICE_FEES,
 } from "@/lib/checkoutPricing";
+import { withErrorHandling } from "@/lib/apiHandler";
 
-export async function GET() {
+export const GET = withErrorHandling(async () => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -34,9 +35,9 @@ export async function GET() {
   });
 
   return NextResponse.json(orders);
-}
+});
 
-export async function POST(request: NextRequest) {
+export const POST = withErrorHandling(async (request: NextRequest) => {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -146,4 +147,4 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json(order, { status: 201 });
-}
+});

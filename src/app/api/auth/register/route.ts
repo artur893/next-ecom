@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { withErrorHandling } from "@/lib/apiHandler";
 
-export async function POST(request: NextRequest) {
+export const POST = withErrorHandling(async (request: NextRequest) => {
   const { email: rawEmail, password, mobile, country } = await request.json();
 
   if (!rawEmail || !password) {
@@ -32,4 +33,4 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json({ id: user.id, email: user.email }, { status: 201 });
-}
+});

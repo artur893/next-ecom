@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { withErrorHandling } from "@/lib/apiHandler";
 
 export const revalidate = 0;
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  try {
+export const GET = withErrorHandling(
+  async (
+    _request: NextRequest,
+    { params }: { params: Promise<{ id: string }> },
+  ) => {
     const { id } = await params;
     const numId = Number(id);
 
@@ -34,12 +35,5 @@ export async function GET(
     }
 
     return NextResponse.json(product);
-  } catch (error) {
-    console.error("GET /api/product/[id] error:", error);
-
-    return NextResponse.json(
-      { error: "Nie udało się pobrać produktu" },
-      { status: 500 },
-    );
-  }
-}
+  },
+);
