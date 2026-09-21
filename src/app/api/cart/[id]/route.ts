@@ -3,13 +3,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-async function isOwnedByUser(cartItemId: number, userId: number) {
+async function findOwnedCartItem(cartItemId: number, userId: number) {
   const cartItem = await prisma.cartItem.findUnique({
     where: { id: cartItemId },
-    select: { cart: { select: { userId: true } } },
+    select: {
+      cart: { select: { userId: true } },
+      product: { select: { name: true, stock: true } },
+    },
   });
 
-  return cartItem?.cart.userId === userId;
+  return cartItem?.cart.userId === userId ? cartItem : null;
 }
 
 export async function PATCH(
@@ -33,9 +36,19 @@ export async function PATCH(
   }
 
   const userId = Number(session.user.id);
+  const cartItem = await findOwnedCartItem(Number(id), userId);
 
-  if (!(await isOwnedByUser(Number(id), userId))) {
+  if (!cartItem) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
+  }
+
+  if (Number(quantity) > cartItem.product.stock) {
+    return NextResponse.json(
+      {
+        error: `Only ${cartItem.product.stock} left in stock for ${cartItem.product.name}`,
+      },
+      { status: 400 },
+    );
   }
 
   const updated = await prisma.cartItem.update({
@@ -59,7 +72,7 @@ export async function DELETE(
   const { id } = await params;
   const userId = Number(session.user.id);
 
-  if (!(await isOwnedByUser(Number(id), userId))) {
+  if (!(await findOwnedCartItem(Number(id), userId))) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 

@@ -13,11 +13,14 @@ function moreleImages(id: number, indices: number[], ext = "jpg") {
 }
 
 async function main() {
+  await prisma.orderItem.deleteMany();
+  await prisma.order.deleteMany();
   await prisma.cartItem.deleteMany();
   await prisma.cart.deleteMany();
   await prisma.product.deleteMany();
   await prisma.category.deleteMany();
   await prisma.brand.deleteMany();
+  await prisma.address.deleteMany();
   await prisma.user.deleteMany();
 
   const categories = [

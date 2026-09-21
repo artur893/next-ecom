@@ -60,13 +60,26 @@ export async function POST(request: NextRequest) {
     select: {
       id: true,
       quantity: true,
-      product: { select: { id: true, price: true } },
+      product: { select: { id: true, name: true, price: true, stock: true } },
     },
   });
 
   if (cartItems.length !== cartItemIds.length) {
     return NextResponse.json(
       { error: "Some cart items were not found" },
+      { status: 400 },
+    );
+  }
+
+  const outOfStock = cartItems.find(
+    (item) => item.quantity > item.product.stock,
+  );
+
+  if (outOfStock) {
+    return NextResponse.json(
+      {
+        error: `Only ${outOfStock.product.stock} left in stock for ${outOfStock.product.name}`,
+      },
       { status: 400 },
     );
   }
@@ -91,6 +104,18 @@ export async function POST(request: NextRequest) {
     SERVICE_FEES;
 
   const order = await prisma.$transaction(async (tx) => {
+    for (const item of cartItems) {
+      const reserved = await tx.product.updateMany({
+        where: { id: item.product.id, stock: { gte: item.quantity } },
+        data: { stock: { decrement: item.quantity } },
+      });
+
+      // stock can be taken by another order between the check above and this update
+      if (reserved.count === 0) {
+        throw new Error(`Insufficient stock for product ${item.product.id}`);
+      }
+    }
+
     const created = await tx.order.create({
       data: {
         invoiceNumber: generateInvoiceNumber(),

@@ -60,10 +60,10 @@ export default function CartItemRow({
                 <div className="flex items-center gap-4 rounded-md border border-[#FCFCFC] px-3 py-2 text-[#FCFCFC]">
                   <button
                     type="button"
-                    onClick={() =>
-                      onQuantityChange(Math.max(1, item.quantity - 1))
-                    }
+                    onClick={() => onQuantityChange(item.quantity - 1)}
+                    disabled={item.quantity <= 1}
                     aria-label="Decrease quantity"
+                    className="disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <MinusIcon width={16} height={16} />
                   </button>
@@ -73,7 +73,9 @@ export default function CartItemRow({
                   <button
                     type="button"
                     onClick={() => onQuantityChange(item.quantity + 1)}
+                    disabled={item.quantity >= item.product.stock}
                     aria-label="Increase quantity"
+                    className="disabled:cursor-not-allowed disabled:opacity-40"
                   >
                     <PlusIcon width={16} height={16} />
                   </button>

@@ -65,7 +65,9 @@ export default function ProductPurchasePanel({
           <button
             type="button"
             onClick={decrement}
+            disabled={quantity <= 1}
             aria-label="Decrease quantity"
+            className="disabled:cursor-not-allowed disabled:opacity-40"
           >
             <MinusIcon width={24} height={24} />
           </button>
@@ -73,7 +75,9 @@ export default function ProductPurchasePanel({
           <button
             type="button"
             onClick={increment}
+            disabled={quantity >= stock}
             aria-label="Increase quantity"
+            className="disabled:cursor-not-allowed disabled:opacity-40"
           >
             <PlusIcon width={24} height={24} />
           </button>
@@ -96,7 +100,7 @@ export default function ProductPurchasePanel({
           size="xl"
           className="font-medium"
           rightIcon={<CartIcon width={20} height={20} />}
-          onClick={() => addToCart(productId)}
+          onClick={() => addToCart(productId, quantity)}
         >
           Add to Cart
         </Button>
