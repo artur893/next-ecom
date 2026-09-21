@@ -40,7 +40,6 @@ export { default as ArrowLeftShortIcon } from "./arrows/ArrowLeftShortIcon";
 export { default as ArrowRightShortIcon } from "./arrows/ArrowRightShortIcon";
 
 // Product categories
-export { default as HeadphonesIcon } from "./products/HeadphonesIcon";
 export { default as HeadphoneIcon } from "./products/HeadphoneIcon";
 export { default as KeyboardIcon } from "./products/KeyboardIcon";
 export { default as MonitorIcon } from "./products/MonitorIcon";
