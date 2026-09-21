@@ -10,6 +10,32 @@ import {
   SERVICE_FEES,
 } from "@/lib/checkoutPricing";
 
+export async function GET() {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const orders = await prisma.order.findMany({
+    where: { userId: Number(session.user.id) },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      invoiceNumber: true,
+      createdAt: true,
+      items: {
+        select: {
+          id: true,
+          product: { select: { name: true } },
+        },
+      },
+    },
+  });
+
+  return NextResponse.json(orders);
+}
+
 export async function POST(request: NextRequest) {
   const session = await getServerSession(authOptions);
 

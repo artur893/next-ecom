@@ -9,6 +9,13 @@ export interface OrderItem {
   };
 }
 
+export interface OrderListItem {
+  id: number;
+  invoiceNumber: string;
+  createdAt: string;
+  items: { id: number; product: { name: string } }[];
+}
+
 export interface Order {
   id: number;
   invoiceNumber: string;

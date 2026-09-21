@@ -1,11 +1,5 @@
 import { BagIcon } from "@/app/components/icons";
-
-export interface TransactionEntry {
-  id: number;
-  createdAt: string;
-  invoiceNumber: string;
-  productNames: string[];
-}
+import { OrderListItem } from "@/lib/types/order";
 
 function formatTransactionDate(value: string) {
   const date = new Date(value);
@@ -15,9 +9,9 @@ function formatTransactionDate(value: string) {
 }
 
 export default function TransactionList({
-  transactions,
+  orders,
 }: {
-  transactions: TransactionEntry[];
+  orders: OrderListItem[];
 }) {
   return (
     <div className="min-w-0 flex-1">
@@ -25,27 +19,27 @@ export default function TransactionList({
         Transaction
       </span>
 
-      {transactions.length > 0 ? (
+      {orders.length > 0 ? (
         <div className="mt-6 flex flex-col gap-4">
-          {transactions.map((transaction) => (
+          {orders.map((order) => (
             <div
-              key={transaction.id}
+              key={order.id}
               className="rounded-md border border-gray-800 bg-neutral-900 p-6"
             >
               <div className="flex items-center gap-3">
                 <BagIcon width={26} height={26} className="shrink-0" />
                 <span className="text-paragraph-m text-neutral-300">
-                  {formatTransactionDate(transaction.createdAt)}
+                  {formatTransactionDate(order.createdAt)}
                 </span>
               </div>
 
               <p className="mt-4 text-paragraph-l text-[#FCFCFC]">
-                Your order nr {transaction.invoiceNumber}
+                Your order nr {order.invoiceNumber}
               </p>
 
               <ul className="mt-2 list-disc pl-10 text-paragraph-m text-[#FCFCFC]">
-                {transaction.productNames.map((name, index) => (
-                  <li key={`${transaction.id}-${index}`}>{name}</li>
+                {order.items.map((item) => (
+                  <li key={item.id}>{item.product.name}</li>
                 ))}
               </ul>
             </div>

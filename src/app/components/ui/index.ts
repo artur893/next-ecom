@@ -41,4 +41,3 @@ export { default as CheckoutView } from "./checkout/CheckoutView";
 // Profile
 export { default as ProfileCard } from "./profile/ProfileCard";
 export { default as TransactionList } from "./profile/TransactionList";
-export type { TransactionEntry } from "./profile/TransactionList";
