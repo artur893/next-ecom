@@ -11,7 +11,7 @@ export default async function Header() {
 
   return (
     <header className="w-full flex justify-between items-center">
-      <Link href={"/"}>
+      <Link href="/home">
         <h1 className="text-heading-4 font-semibold">
           <Logo />
         </h1>
