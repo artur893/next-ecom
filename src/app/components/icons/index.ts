@@ -22,6 +22,7 @@ export { default as HeartIcon } from "./actions/HeartIcon";
 export { default as LikeIcon } from "./actions/LikeIcon";
 export { default as ShieldCheckIcon } from "./actions/ShieldCheckIcon";
 export { default as TrashIcon } from "./actions/TrashIcon";
+export { default as BagIcon } from "./actions/BagIcon";
 
 // Arrows / chevrons
 export { default as RightArrowIcon } from "./arrows/RightArrowIcon";

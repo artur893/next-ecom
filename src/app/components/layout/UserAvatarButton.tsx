@@ -1,14 +1,13 @@
-"use client";
-import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 export default function UserAvatarButton({ initial }: { initial: string }) {
   return (
-    <button
-      type="button"
-      onClick={() => signOut({ callbackUrl: "/login" })}
-      className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center text-neutral-900 text-lg font-semibold"
+    <Link
+      href="/profile"
+      aria-label="Go to profile"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-500 text-lg font-semibold text-neutral-900"
     >
       {initial}
-    </button>
+    </Link>
   );
 }

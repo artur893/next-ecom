@@ -37,3 +37,8 @@ export { default as OrderItemCard } from "./checkout/OrderItemCard";
 export { default as AddressSection } from "./checkout/AddressSection";
 export { default as OrderSummary } from "./checkout/OrderSummary";
 export { default as CheckoutView } from "./checkout/CheckoutView";
+
+// Profile
+export { default as ProfileCard } from "./profile/ProfileCard";
+export { default as TransactionList } from "./profile/TransactionList";
+export type { TransactionEntry } from "./profile/TransactionList";
