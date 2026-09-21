@@ -1,12 +1,7 @@
 import "server-only";
-import { notFound } from "next/navigation";
 import { ProductDetail } from "@/lib/types/product";
-import { apiFetch } from "./apiFetch";
+import { apiFetchOrNotFound } from "./apiFetch";
 
 export async function getProduct(id: number) {
-  try {
-    return await apiFetch<ProductDetail>(`/api/product/${id}`);
-  } catch {
-    notFound();
-  }
+  return apiFetchOrNotFound<ProductDetail>(`/api/product/${id}`);
 }
