@@ -1,5 +1,5 @@
 import "server-only";
-import { ProductListItem } from "@/lib/types/product";
+import { ProductListItem } from "@/types/product";
 import { apiFetch } from "./apiFetch";
 
 export async function getRecommendedProducts() {

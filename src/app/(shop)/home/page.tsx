@@ -5,7 +5,7 @@ import {
   HorizontalScrollSection,
   ProductCard,
   Card,
-} from "@/app/components/ui";
+} from "@/components/ui";
 import { getCategories } from "@/data/getCategories";
 import { getBrands } from "@/data/getBrands";
 import { getRecommendedProducts } from "@/data/getRecommendedProducts";

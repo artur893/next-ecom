@@ -3,7 +3,7 @@ import {
   ProductGallery,
   ProductInfo,
   ProductPurchasePanel,
-} from "@/app/components/ui";
+} from "@/components/ui";
 import { getProduct } from "@/data/getProduct";
 import { getEstimatedDeliveryRange } from "@/lib/deliveryDate";
 

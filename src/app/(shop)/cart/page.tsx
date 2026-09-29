@@ -1,4 +1,4 @@
-import { Breadcrumb, CartView } from "@/app/components/ui";
+import { Breadcrumb, CartView } from "@/components/ui";
 import { getCart } from "@/data/getCart";
 
 export default async function Cart() {

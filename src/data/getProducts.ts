@@ -1,5 +1,5 @@
 import "server-only";
-import { ProductListResponse } from "@/lib/types/product";
+import { ProductListResponse } from "@/types/product";
 import { apiFetch } from "./apiFetch";
 
 export async function getProducts(query: URLSearchParams) {

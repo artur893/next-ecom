@@ -3,7 +3,7 @@ import {
   Pagination,
   CategoryPriceFilters,
   SortAndShowControls,
-} from "@/app/components/ui";
+} from "@/components/ui";
 import { getProducts } from "@/data/getProducts";
 import { getCategories } from "@/data/getCategories";
 import { buildProductFilterParams } from "@/lib/productQuery";

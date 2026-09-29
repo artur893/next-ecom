@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { Breadcrumb, AddressSection, CheckoutView } from "@/app/components/ui";
-import { ApplePayIcon, ShieldCheckIcon } from "@/app/components/icons";
+import { Breadcrumb, AddressSection, CheckoutView } from "@/components/ui";
+import { ApplePayIcon, ShieldCheckIcon } from "@/components/icons";
 import { getAddresses } from "@/data/getAddresses";
 import { getCart } from "@/data/getCart";
 

@@ -1,4 +1,4 @@
-import { Address } from "@/lib/types/address";
+import { Address } from "@/types/address";
 import { useNotification } from "./useNotification";
 
 export function useSaveAddress() {

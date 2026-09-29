@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
-import { Logo } from "@/app/components/ui";
-import LoginForm from "@/app/components/auth/LoginForm";
+import { Logo } from "@/components/ui";
+import LoginForm from "@/components/auth/LoginForm";
 
 export default async function Login() {
   const session = await getServerSession(authOptions);

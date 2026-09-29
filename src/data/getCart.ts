@@ -1,5 +1,5 @@
 import "server-only";
-import { CartItem } from "@/lib/types/cart";
+import { CartItem } from "@/types/cart";
 import { apiFetch } from "./apiFetch";
 
 export async function getCart() {

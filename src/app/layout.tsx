@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import { NotificationProvider } from "./components/providers/NotificationProvider";
-import AuthSessionProvider from "./components/providers/AuthSessionProvider";
+import { NotificationProvider } from "@/components/providers/NotificationProvider";
+import AuthSessionProvider from "@/components/providers/AuthSessionProvider";
 
 export const metadata: Metadata = {
   title: "DevstockHub",

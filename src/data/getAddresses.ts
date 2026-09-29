@@ -1,5 +1,5 @@
 import "server-only";
-import { Address } from "@/lib/types/address";
+import { Address } from "@/types/address";
 import { apiFetch } from "./apiFetch";
 
 export async function getAddresses() {

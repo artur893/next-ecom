@@ -1,5 +1,5 @@
-import { Button, SuccessCheck } from "@/app/components/ui";
-import ProductImageFrame from "@/app/components/ui/product/ProductImageFrame";
+import { Button, SuccessCheck } from "@/components/ui";
+import ProductImageFrame from "@/components/ui/product/ProductImageFrame";
 import { getOrder } from "@/data/getOrder";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {

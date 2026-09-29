@@ -1,4 +1,4 @@
-import { Order } from "@/lib/types/order";
+import { Order } from "@/types/order";
 import { useNotification } from "./useNotification";
 
 export function usePlaceOrder() {

@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { Breadcrumb, ProfileCard, TransactionList } from "@/app/components/ui";
+import { Breadcrumb, ProfileCard, TransactionList } from "@/components/ui";
 import { getOrders } from "@/data/getOrders";
 
 export default async function Profile() {
