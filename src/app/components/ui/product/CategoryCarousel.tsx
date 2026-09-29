@@ -73,7 +73,12 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
           <p className="text-paragraph-m mb-10">
             {categories[currentPage].description}
           </p>
-          <Button variant="outline" rightIcon={<RightArrowIcon />}>
+          <Button
+            href={`/product?category=${categories[currentPage].id}`}
+            variant="outline"
+            className="w-fit"
+            rightIcon={<RightArrowIcon />}
+          >
             Explore Category
           </Button>
         </div>
