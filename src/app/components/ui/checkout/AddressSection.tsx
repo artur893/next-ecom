@@ -1,5 +1,6 @@
 "use client";
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import { COUNTRIES } from "@/lib/countries";
 import { Address } from "@/lib/types/address";
 import { useSaveAddress } from "@/hooks/useSaveAddress";
@@ -36,6 +37,7 @@ export default function AddressSection({
   const saveAddress = useSaveAddress();
   const setMainAddress = useSetMainAddress();
   const removeAddress = useRemoveAddress();
+  const router = useRouter();
 
   async function handleSetMain(addressId: number) {
     const ok = await setMainAddress(addressId);
@@ -51,6 +53,7 @@ export default function AddressSection({
     if (!ok) return;
 
     setAddresses((prev) => prev.filter((a) => a.id !== addressId));
+    router.refresh();
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -69,6 +72,7 @@ export default function AddressSection({
     );
     setForm(EMPTY_FORM);
     setTab("existing");
+    router.refresh();
   }
 
   return (

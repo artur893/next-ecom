@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { CartItem } from "@/lib/types/cart";
 import { useUpdateCartItemQuantity } from "@/hooks/useUpdateCartItemQuantity";
 import { usePlaceOrder } from "@/hooks/usePlaceOrder";
+import { useNotification } from "@/hooks/useNotification";
 import {
   PRODUCT_PROTECTION_PRICE,
   SHIPPING_PRICE,
@@ -18,9 +19,11 @@ const SHIPPING_METHOD = "NexusHub Courier";
 
 export default function CheckoutView({
   items: initialItems,
+  hasAddress,
   children,
 }: {
   items: CartItem[];
+  hasAddress: boolean;
   children: ReactNode;
 }) {
   const [items, setItems] = useState(initialItems);
@@ -31,6 +34,7 @@ export default function CheckoutView({
   const updateQuantity = useUpdateCartItemQuantity();
   const placeOrder = usePlaceOrder();
   const router = useRouter();
+  const { showNotification } = useNotification();
 
   async function handleQuantityChange(id: number, quantity: number) {
     const previous = items.find((item) => item.id === id)?.quantity;
@@ -75,6 +79,12 @@ export default function CheckoutView({
     SERVICE_FEES;
 
   async function handlePayNow() {
+    if (!hasAddress) {
+      showNotification("Please add a delivery address", "error");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     setIsPaying(true);
 
     const order = await placeOrder({

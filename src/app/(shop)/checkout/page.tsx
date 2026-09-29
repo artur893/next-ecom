@@ -35,7 +35,7 @@ export default async function Checkout({
         ]}
       />
 
-      <CheckoutView items={items}>
+      <CheckoutView items={items} hasAddress={addresses.length > 0}>
         <div className="mt-10">
           <AddressSection addresses={addresses} />
         </div>
