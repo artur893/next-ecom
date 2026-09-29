@@ -40,4 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# notatki robocze
+AUDIT.md
+
 /src/generated/prisma
