@@ -6,6 +6,7 @@ import { OpenEyeIcon, ClosedEyeIcon } from "@/app/components/icons";
 import { useRouter } from "next/navigation";
 import { useNotification } from "@/hooks/useNotification";
 import { COUNTRIES } from "@/lib/countries";
+import { isValidPhone } from "@/lib/phone";
 
 type RegisterFormValues = {
   email: string;
@@ -87,6 +88,8 @@ export default function RegisterForm() {
           error={errors.mobile?.message}
           {...register("mobile", {
             required: "Please enter your phone number.",
+            validate: (value) =>
+              isValidPhone(value) || "Please enter a valid phone number.",
           })}
         />
 

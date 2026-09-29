@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import { normalizePhone } from "@/lib/phone";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,7 +21,7 @@ export const authOptions: NextAuthOptions = {
           where: {
             OR: [
               { email: credentials.identifier.toLowerCase().trim() },
-              { mobile: credentials.identifier.trim() },
+              { mobile: normalizePhone(credentials.identifier) },
             ],
           },
         });
