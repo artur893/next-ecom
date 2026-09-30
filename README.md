@@ -2,7 +2,7 @@
 
 An online electronics store built as the project of the Devstock Next.js course, based on a provided Figma design.
 
-**Live demo:** _coming soon (Vercel)_
+**Live demo:** [next-ecom-halemba.vercel.app](https://next-ecom-halemba.vercel.app) (sign in with the [test account](#test-account))
 
 ## Features
 
