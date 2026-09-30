@@ -64,7 +64,7 @@ export default function LoginForm() {
 
   return (
     <section className="max-w-md w-full mx-auto bg-base-shark p-8 rounded-xl border border-gray-700">
-      <h2 className="text-2xl mb-5">Sign in</h2>
+      <h2 className="text-xl mb-5 md:text-2xl">Sign in</h2>
       <div className="h-px w-full bg-neutral-700 mb-8"></div>
 
       <form

@@ -11,11 +11,11 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, error, className = "", children, ...props }, ref) => {
     return (
       <div>
-        {label && <label className="text-lg">{label}</label>}
+        {label && <label className="text-sm md:text-lg">{label}</label>}
         <div className={`relative ${label ? "mt-4" : ""}`}>
           <select
             ref={ref}
-            className={`w-full appearance-none p-3 pr-10 rounded-md bg-base-shark text-white border ${
+            className={`w-full appearance-none p-3 pr-10 rounded-md bg-base-shark text-sm text-white border md:text-base ${
               error ? "border-danger-500" : "border-gray-700"
             } ${className}`}
             {...props}

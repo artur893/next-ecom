@@ -8,7 +8,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-screen px-10 py-8">
+    <div className="flex flex-col min-h-screen px-4 py-6 md:px-10 md:py-8">
       <Header />
       <div className="mt-4"></div>
       <div className="h-px w-full bg-neutral-700 my-10"></div>
