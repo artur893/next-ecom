@@ -25,14 +25,14 @@ export default function Notification() {
     >
       <div className="flex items-center gap-3">
         {notification.type === "success" && (
-          <CheckCircleIcon width={30} height={30} className="text-success-300" />
+          <CheckCircleIcon className="size-5 shrink-0 text-success-300 md:size-7.5" />
         )}
-        <span className="text-heading-7-lg font-medium">
+        <span className="text-paragraph-s font-medium md:text-heading-7-lg">
           {notification.message}
         </span>
       </div>
       <button type="button" onClick={clearNotification}>
-        <CloseIcon width={30} height={30} />
+        <CloseIcon className="size-5 md:size-7.5" />
       </button>
     </div>
   );

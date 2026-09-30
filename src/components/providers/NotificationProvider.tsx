@@ -29,6 +29,7 @@ export function NotificationProvider({
   const showNotification = useCallback(
     (message: string, type: NotificationType = "success") => {
       setNotification({ message, type });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [],
   );
