@@ -61,7 +61,7 @@ export default function ProductPurchasePanel({
         Quantity
       </span>
       <div className="mt-3 flex items-center gap-4">
-        <div className="flex items-center gap-4 rounded-md border border-[#FCFCFC] px-3 py-2 text-[#FCFCFC]">
+        <div className="flex items-center gap-4 rounded-md border border-base-white-3 px-3 py-2 text-base-white-3">
           <button
             type="button"
             onClick={decrement}
@@ -82,7 +82,7 @@ export default function ProductPurchasePanel({
             <PlusIcon width={24} height={24} />
           </button>
         </div>
-        <span className="text-paragraph-s text-[#FCFCFC]">Stock : {stock}</span>
+        <span className="text-paragraph-s text-base-white-3">Stock : {stock}</span>
       </div>
 
       <div className="mt-6 flex items-center justify-between gap-4">
@@ -90,7 +90,7 @@ export default function ProductPurchasePanel({
           <span className="block text-paragraph-l font-medium text-neutral-300">
             Subtotal
           </span>
-          <span className="text-heading-6 font-medium text-[#FCFCFC]">
+          <span className="text-heading-6 font-medium text-base-white-3">
             ${(price * quantity).toFixed(2)}
           </span>
         </div>

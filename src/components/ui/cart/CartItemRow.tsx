@@ -33,7 +33,7 @@ export default function CartItemRow({
 
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-4">
-              <p className="text-heading-7 font-medium text-[#FCFCFC]">
+              <p className="text-heading-7 font-medium text-base-white-3">
                 {item.product.name}
               </p>
               <button type="button" onClick={onRemove} aria-label="Remove item">
@@ -46,7 +46,7 @@ export default function CartItemRow({
             </span>
 
             <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
-              <p className="text-heading-6 font-medium text-[#FCFCFC]">
+              <p className="text-heading-6 font-medium text-base-white-3">
                 ${item.product.price.toFixed(2)}
               </p>
               <div className="flex gap-6 items-center">
@@ -57,7 +57,7 @@ export default function CartItemRow({
                   Write Note
                 </button>
                 <span className="h-6 w-px bg-gray-700" />
-                <div className="flex items-center gap-4 rounded-md border border-[#FCFCFC] px-3 py-2 text-[#FCFCFC]">
+                <div className="flex items-center gap-4 rounded-md border border-base-white-3 px-3 py-2 text-base-white-3">
                   <button
                     type="button"
                     onClick={() => onQuantityChange(item.quantity - 1)}

@@ -105,7 +105,7 @@ export default function CheckoutView({
   return (
     <div className="mt-6 flex flex-col gap-8 xl:flex-row xl:items-start">
       <div className="min-w-0 flex-1">
-        <h1 className="text-heading-6 font-medium text-[#FCFCFC]">
+        <h1 className="text-heading-6 font-medium text-base-white-3">
           Your Order
         </h1>
         <div className="mt-4 flex flex-col gap-6">

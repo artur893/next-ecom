@@ -27,7 +27,7 @@ export default function ProductDescription({
     <div className="w-full">
       <p
         ref={textRef}
-        className={`text-paragraph-m font-normal text-[#FCFCFC] ${
+        className={`text-paragraph-m font-normal text-base-white-3 ${
           expanded ? "" : "line-clamp-1"
         }`}
       >

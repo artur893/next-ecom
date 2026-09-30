@@ -11,7 +11,7 @@ export default function CartSummary({
 }) {
   return (
     <div className="ml-9 w-[calc(100%-2.25rem)] shrink-0 rounded-md border border-gray-800 bg-neutral-900 p-6 xl:ml-0 xl:w-full xl:max-w-90">
-      <h2 className="text-paragraph-l font-medium text-[#FCFCFC]">
+      <h2 className="text-paragraph-l font-medium text-base-white-3">
         Total Product
       </h2>
 
@@ -19,7 +19,7 @@ export default function CartSummary({
         <span className="text-paragraph-m text-neutral-300">
           Total Product Price ({itemCount} Item)
         </span>
-        <span className="text-paragraph-m font-medium text-[#FCFCFC]">
+        <span className="text-paragraph-m font-medium text-base-white-3">
           ${subtotal.toFixed(2)}
         </span>
       </div>
@@ -28,7 +28,7 @@ export default function CartSummary({
         <span className="text-paragraph-l font-medium text-neutral-300">
           Subtotal
         </span>
-        <span className="text-heading-5 font-medium text-[#FCFCFC]">
+        <span className="text-heading-5 font-medium text-base-white-3">
           ${subtotal.toFixed(2)}
         </span>
       </div>

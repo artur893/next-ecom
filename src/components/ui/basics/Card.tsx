@@ -33,7 +33,7 @@ export default function Card({
     </>
   );
 
-  const baseClassName = `flex flex-col items-center justify-center gap-2 lg:gap-6 rounded-md border border-[#616674] bg-neutral-900 p-3 ${className}`;
+  const baseClassName = `flex flex-col items-center justify-center gap-2 lg:gap-6 rounded-md border border-gray-550 bg-neutral-900 p-3 ${className}`;
 
   if (href) {
     return (

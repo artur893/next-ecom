@@ -4,7 +4,7 @@ import { CheckCircleIcon, CloseIcon } from "@/components/icons";
 import { useNotification } from "@/hooks/useNotification";
 
 const typeStyles = {
-  success: "bg-[#295B40] border-success-500 text-success-100",
+  success: "bg-success-750 border-success-500 text-success-100",
   error: "bg-danger-900 border-danger-600 text-danger-100",
 };
 

@@ -14,7 +14,7 @@ export default function ProfileCard({
           {name.charAt(0).toUpperCase()}
         </div>
         <div className="min-w-0">
-          <p className="truncate text-paragraph-l font-medium text-[#FCFCFC]">
+          <p className="truncate text-paragraph-l font-medium text-base-white-3">
             {name}
           </p>
           <p className="truncate text-paragraph-s text-neutral-300">{email}</p>

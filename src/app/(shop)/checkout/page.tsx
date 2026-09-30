@@ -41,24 +41,24 @@ export default async function Checkout({
         </div>
 
         <div className="mt-10">
-          <h2 className="text-heading-6 font-medium text-[#FCFCFC]">
+          <h2 className="text-heading-6 font-medium text-base-white-3">
             Shipping
           </h2>
           <div className="mt-4 flex items-center gap-3 rounded-md border border-gray-800 bg-neutral-900 p-4">
             <ShieldCheckIcon width={24} height={24} />
-            <span className="text-paragraph-m font-medium text-[#FCFCFC]">
+            <span className="text-paragraph-m font-medium text-base-white-3">
               NexusHub Courier
             </span>
           </div>
         </div>
 
         <div className="mt-10">
-          <h2 className="text-heading-6 font-medium text-[#FCFCFC]">
+          <h2 className="text-heading-6 font-medium text-base-white-3">
             Payment Method
           </h2>
           <div className="mt-4 flex items-center gap-3 rounded-md border border-gray-800 bg-neutral-900 p-4">
             <ApplePayIcon />
-            <span className="text-paragraph-m font-medium text-[#FCFCFC]">
+            <span className="text-paragraph-m font-medium text-base-white-3">
               Apple Pay
             </span>
           </div>

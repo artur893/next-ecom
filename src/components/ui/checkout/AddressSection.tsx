@@ -77,7 +77,7 @@ export default function AddressSection({
 
   return (
     <div>
-      <h2 className="text-heading-6 font-medium text-[#FCFCFC]">Address</h2>
+      <h2 className="text-heading-6 font-medium text-base-white-3">Address</h2>
 
       <div className="mt-4 rounded-md border border-gray-800 bg-neutral-900 p-6">
         <div className="flex gap-8 border-b border-gray-800">
@@ -143,7 +143,7 @@ export default function AddressSection({
                     )}
                   </div>
 
-                  <p className="mt-3 text-paragraph-l font-medium text-[#FCFCFC]">
+                  <p className="mt-3 text-paragraph-l font-medium text-base-white-3">
                     {address.line}
                   </p>
 
@@ -231,7 +231,7 @@ function AddressField({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <span className="block text-paragraph-s text-neutral-400">{label}</span>
-      <p className="mt-1 text-paragraph-m font-medium text-[#FCFCFC]">
+      <p className="mt-1 text-paragraph-m font-medium text-base-white-3">
         {value}
       </p>
     </div>

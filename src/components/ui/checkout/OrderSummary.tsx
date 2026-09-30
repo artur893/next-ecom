@@ -23,7 +23,7 @@ export default function OrderSummary({
 }) {
   return (
     <div className="w-full shrink-0 rounded-md border border-gray-800 bg-neutral-900 p-6 xl:max-w-90">
-      <h2 className="text-paragraph-l font-medium text-[#FCFCFC]">
+      <h2 className="text-paragraph-l font-medium text-base-white-3">
         Total Product
       </h2>
 
@@ -41,7 +41,7 @@ export default function OrderSummary({
       </div>
 
       <div className="mt-4 border-t border-gray-800 pt-4">
-        <h3 className="text-paragraph-m font-medium text-[#FCFCFC]">
+        <h3 className="text-paragraph-m font-medium text-base-white-3">
           Transaction Fees
         </h3>
         <div className="mt-4">
@@ -53,7 +53,7 @@ export default function OrderSummary({
         <span className="text-paragraph-l font-medium text-neutral-300">
           Grand total
         </span>
-        <span className="text-heading-5 font-medium text-[#FCFCFC]">
+        <span className="text-heading-5 font-medium text-base-white-3">
           ${grandTotal.toFixed(2)}
         </span>
       </div>
@@ -74,7 +74,7 @@ function SummaryRow({ label, value }: { label: string; value: number }) {
   return (
     <div className="flex flex-col gap-1 xs:flex-row xs:items-center xs:justify-between xs:gap-0">
       <span className="text-paragraph-m text-neutral-300">{label}</span>
-      <span className="text-paragraph-m font-medium text-[#FCFCFC]">
+      <span className="text-paragraph-m font-medium text-base-white-3">
         ${value.toFixed(2)}
       </span>
     </div>

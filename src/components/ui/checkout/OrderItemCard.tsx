@@ -28,7 +28,7 @@ export default function OrderItemCard({
         />
 
         <div className="min-w-0 flex-1">
-          <p className="text-heading-7 font-medium text-[#FCFCFC]">
+          <p className="text-heading-7 font-medium text-base-white-3">
             {item.product.name}
           </p>
           <span className="mt-2 inline-block rounded bg-primary-500 px-2 py-1 text-paragraph-s font-medium text-primary-100">
@@ -36,7 +36,7 @@ export default function OrderItemCard({
           </span>
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
-            <p className="text-heading-6 font-medium text-[#FCFCFC]">
+            <p className="text-heading-6 font-medium text-base-white-3">
               ${item.product.price.toFixed(2)}
             </p>
             <div className="flex items-center gap-6">
@@ -47,7 +47,7 @@ export default function OrderItemCard({
                 Write Note
               </button>
               <span className="h-6 w-px bg-gray-700" />
-              <div className="flex items-center gap-4 rounded-md border border-[#FCFCFC] px-3 py-2 text-[#FCFCFC]">
+              <div className="flex items-center gap-4 rounded-md border border-base-white-3 px-3 py-2 text-base-white-3">
                 <button
                   type="button"
                   onClick={() => onQuantityChange(item.quantity - 1)}
@@ -91,14 +91,14 @@ export default function OrderItemCard({
           )}
         </button>
         <div className="min-w-0 flex-1">
-          <p className="text-paragraph-m font-medium text-[#FCFCFC]">
+          <p className="text-paragraph-m font-medium text-base-white-3">
             Product Protection
           </p>
           <p className="text-paragraph-s text-neutral-400">
             The claim process is easy and instant, valid for 6 months
           </p>
         </div>
-        <span className="text-paragraph-m font-medium text-[#FCFCFC]">
+        <span className="text-paragraph-m font-medium text-base-white-3">
           ${protectionPrice.toFixed(2)}
         </span>
       </div>

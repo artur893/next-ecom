@@ -33,11 +33,11 @@ export default function TransactionList({
                 </span>
               </div>
 
-              <p className="mt-4 text-paragraph-l text-[#FCFCFC]">
+              <p className="mt-4 text-paragraph-l text-base-white-3">
                 Your order nr {order.invoiceNumber}
               </p>
 
-              <ul className="mt-2 list-disc pl-10 text-paragraph-m text-[#FCFCFC]">
+              <ul className="mt-2 list-disc pl-10 text-paragraph-m text-base-white-3">
                 {order.items.map((item) => (
                   <li key={item.id}>{item.product.name}</li>
                 ))}
