@@ -1,3 +1,4 @@
+import { notifyCartChanged } from "@/lib/cart";
 import { useNotification } from "./useNotification";
 
 export function useRemoveCartItem() {
@@ -8,7 +9,9 @@ export function useRemoveCartItem() {
       method: "DELETE",
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      notifyCartChanged();
+    } else {
       showNotification("Could not remove item", "error");
     }
 

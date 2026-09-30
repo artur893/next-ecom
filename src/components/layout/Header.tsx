@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { CartIcon } from "@/components/icons";
+import { countCartItems } from "@/lib/cart";
+import { getCart } from "@/data/getCart";
 import { Button, Logo } from "../ui";
+import CartLink from "./CartLink";
 import UserAvatarButton from "./UserAvatarButton";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
   const initial = session?.user?.email?.[0]?.toUpperCase();
+  const cartCount = initial ? countCartItems(await getCart()) : 0;
 
   return (
     <header className="w-full flex justify-between items-center">
@@ -20,9 +23,7 @@ export default async function Header() {
       <div className="flex items-center">
         {initial ? (
           <>
-            <Link href="/cart" className="mr-4 flex items-center justify-center md:mr-7">
-              <CartIcon className="text-neutral-100" />
-            </Link>
+            <CartLink initialCount={cartCount} />
             <UserAvatarButton initial={initial} />
           </>
         ) : (

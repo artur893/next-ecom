@@ -1,3 +1,4 @@
+import { notifyCartChanged } from "@/lib/cart";
 import { useNotification } from "./useNotification";
 
 export function useAddToCart() {
@@ -11,6 +12,7 @@ export function useAddToCart() {
     });
 
     if (response.ok) {
+      notifyCartChanged();
       showNotification("Product Successfully Added");
       return true;
     }

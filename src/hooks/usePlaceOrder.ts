@@ -1,4 +1,5 @@
 import { Order } from "@/types/order";
+import { notifyCartChanged } from "@/lib/cart";
 import { useNotification } from "./useNotification";
 
 export function usePlaceOrder() {
@@ -21,6 +22,7 @@ export function usePlaceOrder() {
       return null;
     }
 
+    notifyCartChanged();
     return (await response.json()) as Order;
   };
 }

@@ -1,3 +1,4 @@
+import { notifyCartChanged } from "@/lib/cart";
 import { useNotification } from "./useNotification";
 
 export function useUpdateCartItemQuantity() {
@@ -13,7 +14,9 @@ export function useUpdateCartItemQuantity() {
       body: JSON.stringify({ quantity }),
     });
 
-    if (!response.ok) {
+    if (response.ok) {
+      notifyCartChanged();
+    } else {
       showNotification("Could not update quantity", "error");
     }
 
