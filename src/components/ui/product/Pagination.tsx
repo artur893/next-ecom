@@ -27,7 +27,7 @@ export default function Pagination({
               href={buildPageHref(page)}
               className={`flex h-9 w-9 items-center justify-center rounded-md text-paragraph-s ${
                 page === currentPage
-                  ? "bg-primary-500 text-neutral-900"
+                  ? "bg-primary-400 text-neutral-900"
                   : "text-neutral-100"
               }`}
             >

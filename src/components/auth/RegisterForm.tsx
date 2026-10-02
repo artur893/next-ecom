@@ -62,7 +62,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <section className="max-w-md mx-auto bg-base-shark p-8 rounded-xl border border-gray-700">
+    <section className="max-w-md mx-auto bg-neutral-900 p-8 rounded-xl border border-gray-700">
       <h2 className="text-xl mb-5 md:text-2xl">Create Account</h2>
       <div className="h-px w-full bg-neutral-700 mb-8"></div>
 

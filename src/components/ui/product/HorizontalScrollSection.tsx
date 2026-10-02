@@ -97,7 +97,7 @@ export default function HorizontalScrollSection({
           <button
             type="button"
             onClick={handleSeeAll}
-            className="flex items-center gap-2 text-paragraph-s text-primary-500"
+            className="flex items-center gap-2 text-paragraph-s text-primary-400"
           >
             See All
             <RightArrowIcon width={16} height={16} />

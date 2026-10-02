@@ -15,7 +15,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <div className={`relative ${label ? "mt-4" : ""}`}>
           <select
             ref={ref}
-            className={`w-full appearance-none p-3 pr-10 rounded-md bg-base-shark text-sm text-white border md:text-base ${
+            className={`w-full appearance-none p-3 pr-10 rounded-md bg-neutral-900 text-sm text-white border md:text-base ${
               error ? "border-danger-500" : "border-gray-700"
             } ${className}`}
             {...props}

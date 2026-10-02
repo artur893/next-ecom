@@ -12,7 +12,7 @@ const Toggle = forwardRef<HTMLInputElement, ToggleProps>(
           className={`peer sr-only ${className}`}
           {...props}
         />
-        <span className="absolute inset-0 rounded-full border border-gray-700 bg-base-shark transition-colors" />
+        <span className="absolute inset-0 rounded-full border border-gray-700 bg-neutral-900 transition-colors" />
         <span className="relative left-1 h-4 w-4 rounded-full bg-neutral-400 transition-transform peer-checked:translate-x-5 peer-checked:bg-primary-500" />
       </label>
     );

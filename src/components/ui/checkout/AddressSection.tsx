@@ -125,7 +125,7 @@ export default function AddressSection({
                         <button
                           type="button"
                           onClick={() => handleSetMain(address.id)}
-                          className="text-paragraph-s font-medium text-primary-500"
+                          className="text-paragraph-s font-medium text-primary-400"
                         >
                           Set as main
                         </button>

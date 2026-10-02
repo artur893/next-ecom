@@ -85,9 +85,9 @@ export default function ProductPurchasePanel({
         <span className="text-paragraph-s text-base-white-3">Stock : {stock}</span>
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-4">
-        <div>
-          <span className="block text-paragraph-l font-medium text-neutral-300">
+      <div className="mt-6 flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <span className="text-paragraph-l font-medium text-neutral-300">
             Subtotal
           </span>
           <span className="text-heading-6 font-medium text-base-white-3">
@@ -98,7 +98,7 @@ export default function ProductPurchasePanel({
         <Button
           variant="outline"
           size="xl"
-          className="font-medium"
+          className="w-full font-medium"
           rightIcon={<CartIcon width={20} height={20} />}
           onClick={() => addToCart(productId, quantity)}
         >

@@ -42,7 +42,7 @@ export default function OrderItemCard({
             <div className="flex items-center gap-6">
               <button
                 type="button"
-                className="text-paragraph-m font-medium text-primary-500"
+                className="text-paragraph-m font-medium text-primary-400"
               >
                 Write Note
               </button>
@@ -82,7 +82,7 @@ export default function OrderItemCard({
           aria-label="Toggle product protection"
           className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border ${
             protectionEnabled
-              ? "border-primary-500 bg-primary-500"
+              ? "border-primary-400 bg-primary-400"
               : "border-gray-700"
           }`}
         >

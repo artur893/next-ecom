@@ -37,7 +37,7 @@ export default function ProductDescription({
         <button
           type="button"
           onClick={() => setExpanded((value) => !value)}
-          className="mt-1 text-paragraph-m font-medium text-primary-500"
+          className="mt-1 text-paragraph-m font-medium text-primary-400"
         >
           {expanded ? "View Less" : "View More"}
         </button>

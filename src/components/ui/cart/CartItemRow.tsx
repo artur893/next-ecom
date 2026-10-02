@@ -52,7 +52,7 @@ export default function CartItemRow({
               <div className="flex gap-6 items-center">
                 <button
                   type="button"
-                  className="text-paragraph-m font-medium text-primary-500"
+                  className="text-paragraph-m font-medium text-primary-400"
                 >
                   Write Note
                 </button>

@@ -62,7 +62,7 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
       <div className="flex justify-between items-center h-113 border border-gray-800 bg-gray-900 rounded-md overflow-hidden">
         <button
           onClick={handlePrevious}
-          className="rotate-180 flex items-center justify-center w-11 h-18.5 py-1 px-1.75 rounded-l-md bg-primary-500 hover:bg-primary-600 active:bg-primary-600 transition-colors duration-200 cursor-pointer"
+          className="rotate-180 flex items-center justify-center w-11 h-18.5 py-1 px-1.75 rounded-l-md bg-primary-400 hover:bg-primary-500 active:bg-primary-500 transition-colors duration-200 cursor-pointer"
         >
           <ChevronRightIcon className="stroke-neutral-900" />
         </button>
@@ -105,7 +105,7 @@ export default function CategoryCarousel({ categories }: CategoryProps) {
         )}
         <button
           onClick={handleNext}
-          className="flex items-center justify-center w-11 h-18.5 py-1 px-1.75 rounded-l-md bg-primary-500 hover:bg-primary-600 active:bg-primary-600 transition-colors duration-200 cursor-pointer"
+          className="flex items-center justify-center w-11 h-18.5 py-1 px-1.75 rounded-l-md bg-primary-400 hover:bg-primary-500 active:bg-primary-500 transition-colors duration-200 cursor-pointer"
         >
           <ChevronRightIcon className="stroke-neutral-900" />
         </button>
